@@ -10,7 +10,6 @@
 		9288D20A1B54269F00E50735 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D2091B54269F00E50735 /* main.m */; };
 		9288D20D1B54269F00E50735 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D20C1B54269F00E50735 /* AppDelegate.m */; };
 		9288D2101B54269F00E50735 /* audioCapture.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9288D20E1B54269F00E50735 /* audioCapture.xcdatamodeld */; };
-		9288D2131B54269F00E50735 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D2121B54269F00E50735 /* ViewController.m */; };
 		9288D2161B54269F00E50735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9288D2141B54269F00E50735 /* Main.storyboard */; };
 		9288D2181B54269F00E50735 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9288D2171B54269F00E50735 /* Images.xcassets */; };
 		9288D21B1B54269F00E50735 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9288D2191B54269F00E50735 /* LaunchScreen.xib */; };
@@ -34,8 +33,6 @@
 		9288D20B1B54269F00E50735 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9288D20C1B54269F00E50735 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9288D20F1B54269F00E50735 /* audioCapture.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = audioCapture.xcdatamodel; sourceTree = "<group>"; };
-		9288D2111B54269F00E50735 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9288D2121B54269F00E50735 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9288D2151B54269F00E50735 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9288D2171B54269F00E50735 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9288D21A1B54269F00E50735 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -85,8 +82,6 @@
 			children = (
 				9288D20B1B54269F00E50735 /* AppDelegate.h */,
 				9288D20C1B54269F00E50735 /* AppDelegate.m */,
-				9288D2111B54269F00E50735 /* ViewController.h */,
-				9288D2121B54269F00E50735 /* ViewController.m */,
 				9288D2141B54269F00E50735 /* Main.storyboard */,
 				9288D2171B54269F00E50735 /* Images.xcassets */,
 				9288D2191B54269F00E50735 /* LaunchScreen.xib */,
@@ -224,7 +219,6 @@
 			files = (
 				9288D20D1B54269F00E50735 /* AppDelegate.m in Sources */,
 				9288D20A1B54269F00E50735 /* main.m in Sources */,
-				9288D2131B54269F00E50735 /* ViewController.m in Sources */,
 				9288D2101B54269F00E50735 /* audioCapture.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
