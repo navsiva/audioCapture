@@ -14,6 +14,7 @@
 		9288D2181B54269F00E50735 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9288D2171B54269F00E50735 /* Images.xcassets */; };
 		9288D21B1B54269F00E50735 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9288D2191B54269F00E50735 /* LaunchScreen.xib */; };
 		9288D2271B54269F00E50735 /* audioCaptureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D2261B54269F00E50735 /* audioCaptureTests.m */; };
+		9288D2311B54450700E50735 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9288D2301B54450700E50735 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		9288D2201B54269F00E50735 /* audioCaptureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = audioCaptureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9288D2251B54269F00E50735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9288D2261B54269F00E50735 /* audioCaptureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = audioCaptureTests.m; sourceTree = "<group>"; };
+		9288D2301B54450700E50735 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9288D2311B54450700E50735 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +65,7 @@
 		9288D1FB1B54269F00E50735 = {
 			isa = PBXGroup;
 			children = (
+				9288D2301B54450700E50735 /* MapKit.framework */,
 				9288D2061B54269F00E50735 /* audioCapture */,
 				9288D2231B54269F00E50735 /* audioCaptureTests */,
 				9288D2051B54269F00E50735 /* Products */,
