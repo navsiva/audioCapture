@@ -15,6 +15,11 @@
 		9288D21B1B54269F00E50735 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9288D2191B54269F00E50735 /* LaunchScreen.xib */; };
 		9288D2271B54269F00E50735 /* audioCaptureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D2261B54269F00E50735 /* audioCaptureTests.m */; };
 		9288D2311B54450700E50735 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9288D2301B54450700E50735 /* MapKit.framework */; };
+		9288D2341B54543700E50735 /* LogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D2331B54543700E50735 /* LogTableViewController.m */; };
+		9288D2371B54546A00E50735 /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D2361B54546A00E50735 /* CaptureViewController.m */; };
+		9288D23D1B5454A400E50735 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D23C1B5454A400E50735 /* LogTableViewCell.m */; };
+		9288D2401B545A9300E50735 /* UploadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D23F1B545A9300E50735 /* UploadTableViewController.m */; };
+		9288D2421B545E6100E50735 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9288D2411B545E6100E50735 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +46,15 @@
 		9288D2251B54269F00E50735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9288D2261B54269F00E50735 /* audioCaptureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = audioCaptureTests.m; sourceTree = "<group>"; };
 		9288D2301B54450700E50735 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		9288D2321B54543700E50735 /* LogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogTableViewController.h; sourceTree = "<group>"; };
+		9288D2331B54543700E50735 /* LogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogTableViewController.m; sourceTree = "<group>"; };
+		9288D2351B54546A00E50735 /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureViewController.h; sourceTree = "<group>"; };
+		9288D2361B54546A00E50735 /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
+		9288D23B1B5454A400E50735 /* LogTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogTableViewCell.h; sourceTree = "<group>"; };
+		9288D23C1B5454A400E50735 /* LogTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogTableViewCell.m; sourceTree = "<group>"; };
+		9288D23E1B545A9300E50735 /* UploadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploadTableViewController.h; path = ../UploadTableViewController.h; sourceTree = "<group>"; };
+		9288D23F1B545A9300E50735 /* UploadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploadTableViewController.m; path = ../UploadTableViewController.m; sourceTree = "<group>"; };
+		9288D2411B545E6100E50735 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9288D2421B545E6100E50735 /* AVFoundation.framework in Frameworks */,
 				9288D2311B54450700E50735 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +80,7 @@
 		9288D1FB1B54269F00E50735 = {
 			isa = PBXGroup;
 			children = (
+				9288D2411B545E6100E50735 /* AVFoundation.framework */,
 				9288D2301B54450700E50735 /* MapKit.framework */,
 				9288D2061B54269F00E50735 /* audioCapture */,
 				9288D2231B54269F00E50735 /* audioCaptureTests */,
@@ -84,6 +100,12 @@
 		9288D2061B54269F00E50735 /* audioCapture */ = {
 			isa = PBXGroup;
 			children = (
+				9288D2321B54543700E50735 /* LogTableViewController.h */,
+				9288D2331B54543700E50735 /* LogTableViewController.m */,
+				9288D2351B54546A00E50735 /* CaptureViewController.h */,
+				9288D2361B54546A00E50735 /* CaptureViewController.m */,
+				9288D23E1B545A9300E50735 /* UploadTableViewController.h */,
+				9288D23F1B545A9300E50735 /* UploadTableViewController.m */,
 				9288D20B1B54269F00E50735 /* AppDelegate.h */,
 				9288D20C1B54269F00E50735 /* AppDelegate.m */,
 				9288D2141B54269F00E50735 /* Main.storyboard */,
@@ -91,6 +113,8 @@
 				9288D2191B54269F00E50735 /* LaunchScreen.xib */,
 				9288D20E1B54269F00E50735 /* audioCapture.xcdatamodeld */,
 				9288D2071B54269F00E50735 /* Supporting Files */,
+				9288D23B1B5454A400E50735 /* LogTableViewCell.h */,
+				9288D23C1B5454A400E50735 /* LogTableViewCell.m */,
 			);
 			path = audioCapture;
 			sourceTree = "<group>";
@@ -221,8 +245,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9288D23D1B5454A400E50735 /* LogTableViewCell.m in Sources */,
+				9288D2401B545A9300E50735 /* UploadTableViewController.m in Sources */,
+				9288D2341B54543700E50735 /* LogTableViewController.m in Sources */,
 				9288D20D1B54269F00E50735 /* AppDelegate.m in Sources */,
 				9288D20A1B54269F00E50735 /* main.m in Sources */,
+				9288D2371B54546A00E50735 /* CaptureViewController.m in Sources */,
 				9288D2101B54269F00E50735 /* audioCapture.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
