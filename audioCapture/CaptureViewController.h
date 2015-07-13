@@ -17,4 +17,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *pauseButton;
+
 @end
