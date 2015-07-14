@@ -8,13 +8,17 @@
 
 #import "CaptureViewController.h"
 
-@interface CaptureViewController (){
+@interface CaptureViewController ()
+
+
+{
     
 //declaring instance variables
 AVAudioRecorder *recorder;
 AVAudioPlayer *player;
 
 }
+
 
 @end
 
@@ -55,6 +59,12 @@ AVAudioPlayer *player;
 
 - (IBAction)recordTapped:(id)sender {
     
+    [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+    
+    [self.pauseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    [self.playButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
     // Stop the audio player before recording
     if (player.playing) {
         [player stop];
@@ -65,12 +75,19 @@ AVAudioPlayer *player;
         
         // Start recording
         [recorder record];
+        [self.recordButton setTitle:@"Recording..." forState:UIControlStateNormal];
+        [self.recordButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
     } else {
         
         // Pause recording
         [recorder pause];
+        [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+        [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
         
+
     }
     
     [self.stopButton setEnabled:YES];
@@ -80,17 +97,89 @@ AVAudioPlayer *player;
 - (IBAction)playTapped:(id)sender {
     
     
-        
+    [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+    
+    [self.pauseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
+    
+    [self.stopButton setTitle:@"Stop" forState:UIControlStateNormal];
+    
+    [self.playButton setTitle:@"Playing" forState:UIControlStateNormal];
+
+
+    
     if (!recorder.recording){
         player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
         [player setDelegate:self];
         [player play];
+        
 }
 }
+- (IBAction)pauseTapped:(id)sender {
+    player.numberOfLoops = 0;
+    
+    [player pause];
+    [self.pauseButton setTitle:@"Playback Paused" forState:UIControlStateNormal];
+    
+    [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
+    [recorder pause];
+    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+    [self.playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+    
+    
+}
+- (IBAction)loopTapped:(id)sender {
+    player.enableRate=YES;
+
+    player.numberOfLoops = -1;
+    player.rate = 1.0f;
+    [player prepareToPlay];
+    [player play];
+}
+
+- (IBAction)loopFaster:(id)sender {
+    player.enableRate=YES;
+
+    [player prepareToPlay];
+    player.rate = 2.0f;
+    player.numberOfLoops = -1;
+  
+    
+    
+    [player play];
+    
+
+    
+    NSLog(@"%f", player.rate);
+    
+    
+}
+
+- (IBAction)loopSlower:(id)sender {
+}
+
+
+
+
 
 - (IBAction)stopTapped:(id)sender {
     
+    [player pause];
+    [self.pauseButton setTitle:@"Playback Stopped" forState:UIControlStateNormal];
+    
+    [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    
     [recorder stop];
+    
+    [self.stopButton setTitle:@"Stopped" forState:UIControlStateNormal];
+    
+    [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
+
+
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setActive:NO error:nil];
@@ -98,6 +187,9 @@ AVAudioPlayer *player;
 
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    
+    [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
+    
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Done"
                                                     message: @"Finish playing the recording!"
                                                    delegate: nil
@@ -109,6 +201,11 @@ AVAudioPlayer *player;
 
 
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
+    
+    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+
     
     [self.stopButton setEnabled:NO];
     [self.playButton setEnabled:YES];

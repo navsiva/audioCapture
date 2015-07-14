@@ -61,9 +61,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZOD-rl-DaQ">
-                                <rect key="frame" x="498" y="218" width="45" height="30"/>
+                                <rect key="frame" x="498" y="218" width="45" height="29.5"/>
                                 <color key="backgroundColor" red="0.066666670139999995" green="0.84705889229999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <state key="normal" title="Record">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -73,13 +73,13 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsu-QE-Oei">
-                                <rect key="frame" x="498" y="256" width="45" height="30"/>
+                                <rect key="frame" x="498" y="256" width="45" height="30.5"/>
                                 <color key="backgroundColor" red="1" green="0.50038190299999996" blue="0.54355398499999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="PiT-q0-rgT"/>
                                     <constraint firstAttribute="width" constant="45" id="kq8-w1-Iww"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <state key="normal" title="Play">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,34 +89,40 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XBR-g4-biF">
-                                <rect key="frame" x="57" y="218" width="47" height="30"/>
+                                <rect key="frame" x="57" y="218" width="47" height="29.5"/>
                                 <color key="backgroundColor" red="0.066666670139999995" green="0.84705889229999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <state key="normal" title="Rwd">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ht6-DB-O2O">
-                                <rect key="frame" x="165" y="294" width="325" height="30"/>
+                                <rect key="frame" x="165" y="294" width="325" height="30.5"/>
                                 <color key="backgroundColor" red="1" green="0.50038190299999996" blue="0.54355398499999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <state key="normal" title="Slower">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="loopSlower:" destination="0XO-p0-ohm" eventType="touchUpInside" id="2O6-dw-q88"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73K-qf-Ksh">
-                                <rect key="frame" x="498" y="294" width="45" height="30"/>
+                                <rect key="frame" x="498" y="294" width="45" height="30.5"/>
                                 <color key="backgroundColor" red="1" green="0.50038190299999996" blue="0.54355398499999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <state key="normal" title="Faster">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="loopFaster:" destination="0XO-p0-ohm" eventType="touchUpInside" id="w23-Fq-tCi"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MHW-JN-Zhp">
-                                <rect key="frame" x="57" y="82" width="486" height="128"/>
+                                <rect key="frame" x="57" y="82" width="486" height="128.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <mapView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="redraw" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wzk-bI-gqV">
@@ -127,22 +133,25 @@
                                 </constraints>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfB-0d-EXM">
-                                <rect key="frame" x="57" y="256" width="433" height="30"/>
+                                <rect key="frame" x="57" y="256" width="433" height="30.5"/>
                                 <color key="backgroundColor" red="0.066666670139999995" green="0.84705889229999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <state key="normal" title="Pause">
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                <state key="normal" title="Pause Playback">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="pauseTapped:" destination="0XO-p0-ohm" eventType="touchUpInside" id="Dif-Lu-BQZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFE-5a-94g">
-                                <rect key="frame" x="112" y="218" width="45" height="30"/>
+                                <rect key="frame" x="112" y="218" width="45" height="29.5"/>
                                 <color key="backgroundColor" red="0.066666670139999995" green="0.84705889229999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="FWk-YO-qmO"/>
                                     <constraint firstAttribute="width" constant="45" id="fVR-6u-Gwu"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <state key="normal" title="Stop">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -152,26 +161,29 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FmS-3D-x9s">
-                                <rect key="frame" x="165" y="218" width="325" height="30"/>
+                                <rect key="frame" x="165" y="218" width="325" height="30.5"/>
                                 <color key="backgroundColor" red="0.066666670139999995" green="0.84705889229999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <state key="normal" title="Fwd">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGU-8A-ceR">
-                                <rect key="frame" x="57" y="294" width="100" height="30"/>
+                                <rect key="frame" x="57" y="294" width="100" height="30.5"/>
                                 <color key="backgroundColor" red="1" green="0.50038190299999996" blue="0.54355398499999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="25v-OL-3l8"/>
                                     <constraint firstAttribute="width" constant="100" id="yE1-A3-67K"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
                                 <state key="normal" title="Loop">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="loopTapped:" destination="0XO-p0-ohm" eventType="touchUpInside" id="zmR-e9-fcX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -230,9 +242,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="fasterLoopButton" destination="73K-qf-Ksh" id="NNN-vh-8Gr"/>
+                        <outlet property="loopButton" destination="AGU-8A-ceR" id="6WQ-B6-Qq6"/>
                         <outlet property="pauseButton" destination="kfB-0d-EXM" id="CjD-gm-GFo"/>
                         <outlet property="playButton" destination="hsu-QE-Oei" id="evc-lR-vvB"/>
                         <outlet property="recordButton" destination="ZOD-rl-DaQ" id="Jaz-U8-w0z"/>
+                        <outlet property="slowerLoopButton" destination="ht6-DB-O2O" id="vVh-Ki-UkM"/>
                         <outlet property="stopButton" destination="BFE-5a-94g" id="24e-0E-QBB"/>
                     </connections>
                 </viewController>

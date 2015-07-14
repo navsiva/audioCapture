@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>4C9DC477-5034-4929-ACC4-1AED08288A22</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>audioCapture</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>2CB207172ADB00C77CBFBB086AA851F024128E6E</key>
 		<string>https://github.com/navsiva/audioCapture.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>audioCapture.xcodeproj/project.xcworkspace</string>
+	<string>audioCapture.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2CB207172ADB00C77CBFBB086AA851F024128E6E</key>
