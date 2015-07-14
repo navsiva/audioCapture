@@ -20,6 +20,7 @@
 		9288D23D1B5454A400E50735 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D23C1B5454A400E50735 /* LogTableViewCell.m */; };
 		9288D2401B545A9300E50735 /* UploadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D23F1B545A9300E50735 /* UploadTableViewController.m */; };
 		9288D2421B545E6100E50735 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9288D2411B545E6100E50735 /* AVFoundation.framework */; };
+		92DC3A701B559B0500535DE4 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DC3A6F1B559B0500535DE4 /* SCSiriWaveformView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		9288D23E1B545A9300E50735 /* UploadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploadTableViewController.h; path = ../UploadTableViewController.h; sourceTree = "<group>"; };
 		9288D23F1B545A9300E50735 /* UploadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploadTableViewController.m; path = ../UploadTableViewController.m; sourceTree = "<group>"; };
 		9288D2411B545E6100E50735 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		92DC3A6E1B559B0500535DE4 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
+		92DC3A6F1B559B0500535DE4 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +103,8 @@
 		9288D2061B54269F00E50735 /* audioCapture */ = {
 			isa = PBXGroup;
 			children = (
+				92DC3A6E1B559B0500535DE4 /* SCSiriWaveformView.h */,
+				92DC3A6F1B559B0500535DE4 /* SCSiriWaveformView.m */,
 				9288D2321B54543700E50735 /* LogTableViewController.h */,
 				9288D2331B54543700E50735 /* LogTableViewController.m */,
 				9288D2351B54546A00E50735 /* CaptureViewController.h */,
@@ -249,6 +254,7 @@
 				9288D2401B545A9300E50735 /* UploadTableViewController.m in Sources */,
 				9288D2341B54543700E50735 /* LogTableViewController.m in Sources */,
 				9288D20D1B54269F00E50735 /* AppDelegate.m in Sources */,
+				92DC3A701B559B0500535DE4 /* SCSiriWaveformView.m in Sources */,
 				9288D20A1B54269F00E50735 /* main.m in Sources */,
 				9288D2371B54546A00E50735 /* CaptureViewController.m in Sources */,
 				9288D2101B54269F00E50735 /* audioCapture.xcdatamodeld in Sources */,
@@ -446,6 +452,7 @@
 				9288D22C1B54269F00E50735 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9288D22D1B54269F00E50735 /* Build configuration list for PBXNativeTarget "audioCaptureTests" */ = {
 			isa = XCConfigurationList;
@@ -454,6 +461,7 @@
 				9288D22F1B54269F00E50735 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

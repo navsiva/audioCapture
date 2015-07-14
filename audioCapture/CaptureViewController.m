@@ -8,16 +8,24 @@
 
 #import "CaptureViewController.h"
 
+typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
+    SCSiriWaveformViewInputTypeRecorder,
+    SCSiriWaveformViewInputTypePlayer
+};
+
 @interface CaptureViewController ()
 
 
-{
-    
-//declaring instance variables
-AVAudioRecorder *recorder;
-AVAudioPlayer *player;
 
-}
+//declaring instance variables
+@property (nonatomic, strong) AVAudioRecorder *recorder;
+@property (nonatomic, strong) AVAudioPlayer *player;
+
+
+@property (weak, nonatomic) IBOutlet SCSiriWaveformView *waveFormView;
+
+@property (nonatomic, assign) SCSiriWaveformViewInputType selectedInputType;
+
 
 
 @end
@@ -50,10 +58,21 @@ AVAudioPlayer *player;
     [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
     
     // Initiate and prepare the recorder
-    recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
-    recorder.delegate = self;
-    recorder.meteringEnabled = YES;
-    [recorder prepareToRecord];
+    self.recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
+    self.recorder.delegate = self;
+    self.recorder.meteringEnabled = YES;
+    [self.recorder prepareToRecord];
+    
+    //setting up waveform
+    
+    CADisplayLink *displaylink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateMeters)];
+    [displaylink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    
+    [self.waveFormView setWaveColor:[UIColor whiteColor]];
+    [self.waveFormView setPrimaryWaveLineWidth:3.0f];
+    [self.waveFormView setSecondaryWaveLineWidth:1.0];
+    
+    [self setSelectedInputType:SCSiriWaveformViewInputTypeRecorder];
     
 }
 
@@ -66,22 +85,22 @@ AVAudioPlayer *player;
     [self.playButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     // Stop the audio player before recording
-    if (player.playing) {
-        [player stop];
+    if (self.player.playing) {
+        [self.player stop];
     }
     
-    if (!recorder.recording) {AVAudioSession *session = [AVAudioSession sharedInstance];
+    if (!self.recorder.recording) {AVAudioSession *session = [AVAudioSession sharedInstance];
         [session setActive:YES error:nil];
         
         // Start recording
-        [recorder record];
+        [self.recorder record];
         [self.recordButton setTitle:@"Recording..." forState:UIControlStateNormal];
         [self.recordButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
     } else {
         
         // Pause recording
-        [recorder pause];
+        [self.recorder pause];
         [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
         [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self.playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -108,22 +127,23 @@ AVAudioPlayer *player;
 
 
     
-    if (!recorder.recording){
-        player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
-        [player setDelegate:self];
-        [player play];
+    if (!self.recorder.recording){
+        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:nil];
+        [self.player setDelegate:self];
+        self.player.meteringEnabled= YES;
+        [self.player play];
         
-}
+    }
 }
 - (IBAction)pauseTapped:(id)sender {
-    player.numberOfLoops = 0;
+    self.player.numberOfLoops = 0;
     
-    [player pause];
+    [self.player pause];
     [self.pauseButton setTitle:@"Playback Paused" forState:UIControlStateNormal];
     
     [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
-    [recorder pause];
+    [self.recorder pause];
     [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
     [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 
@@ -133,33 +153,49 @@ AVAudioPlayer *player;
     
 }
 - (IBAction)loopTapped:(id)sender {
-    player.enableRate=YES;
+    self.player.enableRate=YES;
 
-    player.numberOfLoops = -1;
-    player.rate = 1.0f;
-    [player prepareToPlay];
-    [player play];
+    self.player.numberOfLoops = -1;
+    self.player.rate = 1.0f;
+    [self.player prepareToPlay];
+    [self.player play];
 }
 
 - (IBAction)loopFaster:(id)sender {
-    player.enableRate=YES;
+    self.player.enableRate=YES;
 
-    [player prepareToPlay];
-    player.rate = 2.0f;
-    player.numberOfLoops = -1;
+    [self.player prepareToPlay];
+    self.player.rate = 2.0f;
+    self.player.numberOfLoops = -1;
   
     
     
-    [player play];
+    [self.player play];
     
 
     
-    NSLog(@"%f", player.rate);
+    NSLog(@"%f", self.player.rate);
     
     
 }
 
 - (IBAction)loopSlower:(id)sender {
+    
+    
+    self.player.enableRate=YES;
+    
+    [self.player prepareToPlay];
+    self.player.rate = 0.5f;
+    self.player.numberOfLoops = -1;
+    
+    
+    
+    [self.player play];
+    
+    
+    
+    NSLog(@"%f", self.player.rate);
+    
 }
 
 
@@ -168,12 +204,12 @@ AVAudioPlayer *player;
 
 - (IBAction)stopTapped:(id)sender {
     
-    [player pause];
+    [self.player pause];
     [self.pauseButton setTitle:@"Playback Stopped" forState:UIControlStateNormal];
     
     [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
-    [recorder stop];
+    [self.recorder stop];
     
     [self.stopButton setTitle:@"Stopped" forState:UIControlStateNormal];
     
@@ -221,6 +257,43 @@ AVAudioPlayer *player;
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)updateMeters
+{
+    CGFloat normalizedValue;
+    
+    
+    if ([self.recorder isRecording]) {
+        
+        [self.recorder updateMeters];
+        normalizedValue = [self _normalizedPowerLevelFromDecibels:[self.recorder averagePowerForChannel:0]];
+        
+        
+        
+        
+    } else {
+        [self.player updateMeters];
+        normalizedValue = [self _normalizedPowerLevelFromDecibels:[self.player averagePowerForChannel:0]];
+        
+        
+    }
+    
+    
+    
+    
+    [self.waveFormView updateWithLevel:normalizedValue];
+}
+
+#pragma mark - Private
+
+- (CGFloat)_normalizedPowerLevelFromDecibels:(CGFloat)decibels
+{
+    if (decibels < -60.0f || decibels == 0.0f) {
+        return 0.0f;
+    }
+    
+    return powf((powf(10.0f, 0.05f * decibels) - powf(10.0f, 0.05f * -60.0f)) * (1.0f / (1.0f - powf(10.0f, 0.05f * -60.0f))), 1.0f / 2.0f);
+}
 /*
 #pragma mark - Navigation
 

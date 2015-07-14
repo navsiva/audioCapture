@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "SCSiriWaveformView.h"
 
 @interface CaptureViewController : UIViewController<AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
-
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
-
 @property (weak, nonatomic) IBOutlet UIButton *pauseButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *loopButton;
 @property (weak, nonatomic) IBOutlet UIButton *fasterLoopButton;
 @property (weak, nonatomic) IBOutlet UIButton *slowerLoopButton;
