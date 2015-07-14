@@ -36,6 +36,12 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //test parse cloud functionality
+    
+    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+    testObject[@"foo"] = @"bar";
+    [testObject saveInBackground];
+    
     
     // Disable Stop/Play button when application launches
     [self.stopButton setEnabled:NO];
@@ -68,7 +74,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     CADisplayLink *displaylink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateMeters)];
     [displaylink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     
-    [self.waveFormView setWaveColor:[UIColor whiteColor]];
+    [self.waveFormView setWaveColor:[UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0]];
     [self.waveFormView setPrimaryWaveLineWidth:3.0f];
     [self.waveFormView setSecondaryWaveLineWidth:1.0];
     
@@ -165,7 +171,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     self.player.enableRate=YES;
 
     [self.player prepareToPlay];
-    self.player.rate = 2.0f;
+    self.player.rate = 6.0f;
     self.player.numberOfLoops = -1;
   
     
@@ -185,7 +191,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     self.player.enableRate=YES;
     
     [self.player prepareToPlay];
-    self.player.rate = 0.5f;
+    self.player.rate = 0.1f;
     self.player.numberOfLoops = -1;
     
     
