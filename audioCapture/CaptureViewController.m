@@ -35,14 +35,8 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //test parse cloud functionality
-    
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    testObject[@"foo"] = @"bar";
-    [testObject saveInBackground];
-    
-    
+        
+
     // Disable Stop/Play button when application launches
     [self.stopButton setEnabled:NO];
     [self.playButton setEnabled:NO];
@@ -51,6 +45,9 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     NSArray *pathComponents = [NSArray arrayWithObjects:
                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], @"MyAudioMemo.m4a", nil];
     NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    
+    NSLog(@"%@", outputFileURL);
+    
     
     // Setup audio session
     AVAudioSession *session = [AVAudioSession sharedInstance];
@@ -205,8 +202,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 }
 
 
-
-
+#pragma mark - THIS IS WHERE THE PFOBJECT IS SENT
 
 - (IBAction)stopTapped:(id)sender {
     
@@ -225,6 +221,18 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     [audioSession setActive:NO error:nil];
+    
+    AudioClip *audioClip = [[AudioClip alloc] init];
+    NSData *audioData = [NSData dataWithContentsOfURL:self.recorder.url];
+    
+    PFFile *audioFile = [PFFile fileWithName:@"MyAudioMemo.m4a" data:audioData];
+    audioClip.audioClip = audioFile;
+    
+    audioClip.audioClipName = @"First Recording";
+    
+    [audioClip pinInBackground];
+    
+    
 }
 
 

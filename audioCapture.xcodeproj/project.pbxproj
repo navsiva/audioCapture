@@ -34,6 +34,7 @@
 		92DC3A881B55AC3900535DE4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC3A811B55AC3800535DE4 /* Security.framework */; };
 		92DC3A891B55AC3900535DE4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC3A821B55AC3800535DE4 /* StoreKit.framework */; };
 		92DC3A8A1B55AC3900535DE4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC3A831B55AC3800535DE4 /* SystemConfiguration.framework */; };
+		92DC3A8D1B56CD3000535DE4 /* AudioClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DC3A8C1B56CD3000535DE4 /* AudioClip.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,8 @@
 		92DC3A811B55AC3800535DE4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		92DC3A821B55AC3800535DE4 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		92DC3A831B55AC3800535DE4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		92DC3A8B1B56CD3000535DE4 /* AudioClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioClip.h; sourceTree = "<group>"; };
+		92DC3A8C1B56CD3000535DE4 /* AudioClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioClip.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 		9288D1FB1B54269F00E50735 = {
 			isa = PBXGroup;
 			children = (
+				92DC3A8B1B56CD3000535DE4 /* AudioClip.h */,
+				92DC3A8C1B56CD3000535DE4 /* AudioClip.m */,
 				92DC3A7D1B55AC3800535DE4 /* libsqlite3.dylib */,
 				92DC3A7E1B55AC3800535DE4 /* libz.dylib */,
 				92DC3A7F1B55AC3800535DE4 /* MobileCoreServices.framework */,
@@ -302,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DC3A8D1B56CD3000535DE4 /* AudioClip.m in Sources */,
 				9288D23D1B5454A400E50735 /* LogTableViewCell.m in Sources */,
 				9288D2401B545A9300E50735 /* UploadTableViewController.m in Sources */,
 				9288D2341B54543700E50735 /* LogTableViewController.m in Sources */,

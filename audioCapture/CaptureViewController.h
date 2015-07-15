@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SCSiriWaveformView.h"
 #import <Parse/Parse.h>
+#import "AudioClip.h"
 
 @interface CaptureViewController : UIViewController<AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 

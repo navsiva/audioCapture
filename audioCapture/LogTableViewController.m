@@ -7,8 +7,12 @@
 //
 
 #import "LogTableViewController.h"
+#import <Parse/Parse.h>
+#import "AudioClip.h"
 
 @interface LogTableViewController ()
+
+@property NSMutableArray *objects;
 
 @end
 
@@ -16,12 +20,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+
+-(void)viewWillAppear:(BOOL)animated {
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    //using view will appear so that the view is refreshed everytime and not just on initial app launch
+
+    PFQuery *query = [[PFQuery alloc] initWithClassName:@"AudioClip"];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
+        
+        self.objects = [objects mutableCopy];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,23 +50,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 0;
+    return self.objects.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    AudioClip *object = self.objects[indexPath.row];
+    
+    cell.textLabel.text = [object.createdAt description];
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

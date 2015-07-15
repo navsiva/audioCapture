@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "audioCapture/CaptureViewController.m"
-            timestampString = "458600218.133816"
+            timestampString = "458678712.485106"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "-updateMeters"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "audioCapture/CaptureViewController.m"
-            timestampString = "458600218.133816"
+            timestampString = "458678712.485106"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "-_normalizedPowerLevelFromDecibels:"
             landmarkType = "5">
          </BreakpointContent>
