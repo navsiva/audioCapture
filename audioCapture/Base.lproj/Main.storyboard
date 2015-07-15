@@ -32,9 +32,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Log" id="vL6-84-ONS">
-                        <barButtonItem key="leftBarButtonItem" title="Sync" id="bZO-ae-bfC">
-                            <color key="tintColor" red="0.066666670139999995" green="0.84705889229999998" blue="0.60000002379999995" alpha="1" colorSpace="deviceRGB"/>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ebB-NL-s8o">
                             <color key="tintColor" red="1" green="0.50038190299999996" blue="0.54355398499999996" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
