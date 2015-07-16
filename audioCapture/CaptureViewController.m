@@ -124,6 +124,8 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     audioClip.audioClip = audioFile;
     
     
+    audioClip.creator = [PFInstallation currentInstallation];
+    
     
     audioClip.localURLString = [self.recorder.url absoluteString];
     

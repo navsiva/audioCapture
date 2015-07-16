@@ -20,6 +20,7 @@
 @dynamic createdAt;
 @dynamic objectId;
 @dynamic localURLString;
+@dynamic creator;
 
 + (void)load {
     [self registerSubclass];

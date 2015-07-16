@@ -20,5 +20,8 @@
 @property (nonatomic, strong) NSDate *createdAt;
 @property (nonatomic, strong) NSString *objectId;
 @property (nonatomic, strong) NSString *localURLString;
+@property (nonatomic, strong) PFInstallation *creator;
+
+
 
 @end

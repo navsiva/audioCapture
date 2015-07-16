@@ -18,16 +18,80 @@
 
 @implementation LogTableViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    CGRect newBounds = self.tableView.bounds;
+    newBounds.origin.y = newBounds.origin.y + self.audioSearch.bounds.size.height - 50;
+    self.tableView.bounds = newBounds;
+    
+    [PFUser enableAutomaticUser];
+
+    [[PFUser currentUser] saveInBackground];
+
+    
+    UILongPressGestureRecognizer *cellLongPressed = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
+    cellLongPressed.minimumPressDuration = .5; //seconds
+    cellLongPressed.delegate = self;
+    [self.tableView addGestureRecognizer:cellLongPressed];
+    
+    
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath == nil){
+        NSLog(@"couldn't find index path");
+    } else {
+        
+        AudioClip *object = self.objects[indexPath.row];
+        
+        [object deleteInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+            
+            
+            
+            [self.objects removeObject:object];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.tableView reloadData];
+                
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
+            
+            
+
+            
+        }];
+        
+        
+        
+        
+
+    }
+
+    
+
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
     
+
+    
     //using view will appear so that the view is refreshed everytime and not just on initial app launch
 
     PFQuery *query = [[PFQuery alloc] initWithClassName:@"AudioClip"];
+    
+    
+   [query whereKey:@"creator" equalTo:[PFInstallation currentInstallation]];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error){
         
@@ -66,7 +130,9 @@
     
     AudioClip *object = self.objects[indexPath.row];
     
-    cell.textLabel.text = [object.createdAt description];
+    cell.textLabel.text = [object.audioClipName description];
+    
+//    cell.textLabel.text = [object.createdAt description];
     
     return cell;
 }
