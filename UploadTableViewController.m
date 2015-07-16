@@ -10,12 +10,28 @@
 
 @interface UploadTableViewController ()
 
+@property (nonatomic, strong) AVAudioPlayer *player;
+
+
 @end
+
 
 @implementation UploadTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    
+    NSString *urlString = self.audioClip.localURLString;
+//
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [self.player setDelegate:self];
+    self.player.meteringEnabled= YES;
+
+
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -26,6 +42,9 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+    
+//    [self upload:self];
     // Dispose of any resources that can be recreated.
 }
 
@@ -40,6 +59,35 @@
     // Return the number of rows in the section.
     return 2;
 }
+- (IBAction)play:(id)sender {
+    
+    
+    
+    [self.player play];
+}
+
+- (IBAction)upload:(id)sender {
+    
+//    UIButton *buttonSender = sender;
+    
+    self.audioClip.audioClipName = self.infoTextField.text;
+
+    [self.audioClip saveInBackground];
+    
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+
+    
+    
+     }
+    
+- (IBAction)delete:(id)sender {
+
+//delete wave and start again
+    
+    
+}
+
+
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

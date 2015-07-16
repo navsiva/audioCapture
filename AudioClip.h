@@ -18,7 +18,7 @@
 @property (nonatomic, strong) NSString *audioClipTag;
 @property (nonatomic, strong) PFFile *audioClip;
 @property (nonatomic, strong) NSDate *createdAt;
-
-
+@property (nonatomic, strong) NSString *objectId;
+@property (nonatomic, strong) NSString *localURLString;
 
 @end

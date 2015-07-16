@@ -18,6 +18,8 @@
 @dynamic audioClipLocation;
 @dynamic audioClipTag;
 @dynamic createdAt;
+@dynamic objectId;
+@dynamic localURLString;
 
 + (void)load {
     [self registerSubclass];

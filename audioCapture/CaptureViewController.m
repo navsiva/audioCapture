@@ -26,6 +26,8 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
 @property (nonatomic, assign) SCSiriWaveformViewInputType selectedInputType;
 
+@property (nonatomic, strong) AudioClip *audioClip;
+
 
 
 @end
@@ -35,6 +37,17 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handlePress:)];
+    
+    longPress.minimumPressDuration = .01; //seconds
+    longPress.delegate = self;
+    [self.recordButton addGestureRecognizer:longPress];
+    
+    
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+
         
 
     // Disable Stop/Play button when application launches
@@ -79,15 +92,61 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     
 }
 
-- (IBAction)recordTapped:(id)sender {
+
+-(void)handlePress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
     
-    [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+
     
-    [self.pauseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    if (gestureRecognizer.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
     
-    [self.playButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    //        // Pause recording
+            [self.recorder stop];
+            [self.recordButton setTitle:@"Rec" forState:UIControlStateNormal];
+
+            [self.recordButton setBackgroundColor:[UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0]];
     
-    // Stop the audio player before recording
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+    
+
+    
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setActive:NO error:nil];
+    
+    AudioClip *audioClip = [[AudioClip alloc] init];
+    NSData *audioData = [NSData dataWithContentsOfURL:self.recorder.url];
+    
+    PFFile *audioFile = [PFFile fileWithName:@"MyAudioMemo.m4a" data:audioData];
+    audioClip.audioClip = audioFile;
+    
+    
+    
+    audioClip.localURLString = [self.recorder.url absoluteString];
+    
+    audioClip.audioClipName = @"First Recording";
+    
+    [audioClip pinInBackground];
+    
+    self.audioClip = audioClip;
+    
+    
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:nil];
+    [self.player setDelegate:self];
+    self.player.meteringEnabled= YES;
+    
+    
+    
+}
+- (IBAction)recordTappedOff:(id)sender {
+    
+
+    
+    
+    
     if (self.player.playing) {
         [self.player stop];
     }
@@ -97,40 +156,42 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         
         // Start recording
         [self.recorder record];
-        [self.recordButton setTitle:@"Recording..." forState:UIControlStateNormal];
-        [self.recordButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         
-    } else {
+        [self.recordButton setBackgroundColor:[UIColor colorWithRed:0.992 green:0.322 blue:0.251 alpha:1.0]];
         
-        // Pause recording
-        [self.recorder pause];
-        [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
-        [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [self.playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
         
-
     }
     
+
     [self.stopButton setEnabled:YES];
     [self.playButton setEnabled:NO];
+    
+    
+    
+}
+
+
+
+
+- (IBAction)recordTapped:(id)sender {
+    
+    self.navigationItem.rightBarButtonItem.enabled = YES;
+
+    
+
+    
+
 }
 
 - (IBAction)playTapped:(id)sender {
     
     
-    [self.pauseButton setTitle:@"Pause" forState:UIControlStateNormal];
-    
-    [self.pauseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     
-    [self.stopButton setTitle:@"Stop" forState:UIControlStateNormal];
-    
-    [self.playButton setTitle:@"Playing" forState:UIControlStateNormal];
-
 
     
     if (!self.recorder.recording){
+        [self.playButton setBackgroundColor:[UIColor colorWithRed:0.992 green:0.322 blue:0.251 alpha:1.0]];
         self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:nil];
         [self.player setDelegate:self];
         self.player.meteringEnabled= YES;
@@ -138,23 +199,23 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         
     }
 }
-- (IBAction)pauseTapped:(id)sender {
-    self.player.numberOfLoops = 0;
-    
-    [self.player pause];
-    [self.pauseButton setTitle:@"Playback Paused" forState:UIControlStateNormal];
-    
-    [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    
-    [self.recorder pause];
-    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
-    [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
-    [self.playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
-    
-    
-}
+//- (IBAction)pauseTapped:(id)sender {
+//    self.player.numberOfLoops = 0;
+//    
+//    [self.player pause];
+//    [self.pauseButton setTitle:@"Playback Paused" forState:UIControlStateNormal];
+//    
+//    [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    
+//    [self.recorder pause];
+//    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+//    [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//
+//    [self.playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//
+//    
+//    
+//}
 - (IBAction)loopTapped:(id)sender {
     self.player.enableRate=YES;
 
@@ -204,48 +265,50 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
 #pragma mark - THIS IS WHERE THE PFOBJECT IS SENT
 
-- (IBAction)stopTapped:(id)sender {
-    
-    [self.player pause];
-    [self.pauseButton setTitle:@"Playback Stopped" forState:UIControlStateNormal];
-    
-    [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    
-    [self.recorder stop];
-    
-    [self.stopButton setTitle:@"Stopped" forState:UIControlStateNormal];
-    
-    [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
-
-
-    
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setActive:NO error:nil];
-    
-    AudioClip *audioClip = [[AudioClip alloc] init];
-    NSData *audioData = [NSData dataWithContentsOfURL:self.recorder.url];
-    
-    PFFile *audioFile = [PFFile fileWithName:@"MyAudioMemo.m4a" data:audioData];
-    audioClip.audioClip = audioFile;
-    
-    audioClip.audioClipName = @"First Recording";
-    
-    [audioClip pinInBackground];
-    
-    
-}
+//- (IBAction)stopTapped:(id)sender {
+//    
+//    [self.player pause];
+//    [self.pauseButton setTitle:@"Playback Stopped" forState:UIControlStateNormal];
+//    
+//    [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    
+//    [self.recorder stop];
+//    
+//    [self.stopButton setTitle:@"Stopped" forState:UIControlStateNormal];
+//    
+//    [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
+//
+//
+//    
+//    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+//    [audioSession setActive:NO error:nil];
+//    
+//    AudioClip *audioClip = [[AudioClip alloc] init];
+//    NSData *audioData = [NSData dataWithContentsOfURL:self.recorder.url];
+//    
+//    PFFile *audioFile = [PFFile fileWithName:@"MyAudioMemo.m4a" data:audioData];
+//    audioClip.audioClip = audioFile;
+//    
+//    audioClip.audioClipName = @"First Recording";
+//    
+//    [audioClip pinInBackground];
+//    
+//    self.audioClip = audioClip;
+//    
+//    
+//}
 
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     
-    [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
+    [self.playButton setBackgroundColor:[UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0]];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Done"
-                                                    message: @"Finish playing the recording!"
-                                                   delegate: nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Done"
+//                                                    message: @"Finish playing the recording!"
+//                                                   delegate: nil
+//                                          cancelButtonTitle:@"OK"
+//                                          otherButtonTitles:nil];
+//    [alert show];
 }
 
 
@@ -307,6 +370,29 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     }
     
     return powf((powf(10.0f, 0.05f * decibels) - powf(10.0f, 0.05f * -60.0f)) * (1.0f / (1.0f - powf(10.0f, 0.05f * -60.0f))), 1.0f / 2.0f);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+     if ([[segue identifier] isEqualToString:@"showUpload"]) {
+         
+         [self.player stop];
+         
+         UploadTableViewController *destination= segue.destinationViewController;
+         
+         
+//         AudioClip *object = self.audioClip;
+         
+         destination.audioClip = self.audioClip;
+         
+         
+         
+         
+         
+     }
+    
+    
+    
 }
 /*
 #pragma mark - Navigation

@@ -11,8 +11,9 @@
 #import "SCSiriWaveformView.h"
 #import <Parse/Parse.h>
 #import "AudioClip.h"
+#import "UploadTableViewController.h"
 
-@interface CaptureViewController : UIViewController<AVAudioRecorderDelegate, AVAudioPlayerDelegate>
+@interface CaptureViewController : UIViewController<AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
