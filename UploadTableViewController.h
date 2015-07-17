@@ -26,5 +26,7 @@
 
 @property (nonatomic, strong) AudioClip *audioClip;
 
+@property (weak, nonatomic) IBOutlet UISwitch *mySwitch;
+@property (weak, nonatomic) IBOutlet UILabel *shareLabel;
 
 @end

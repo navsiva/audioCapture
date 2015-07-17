@@ -66,6 +66,22 @@
     [self.player play];
 }
 
+- (IBAction)shareSwitch:(id)sender {
+    
+    if ([self.mySwitch isOn]) {
+        
+        self.shareLabel.textColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
+        [self.mySwitch setOn:YES animated:YES];
+    } else {
+        
+        self.shareLabel.textColor = [UIColor darkGrayColor];
+        [self.mySwitch setOn:NO animated:YES];
+    }
+}
+
+
+
+
 - (IBAction)upload:(id)sender {
     
 //    UIButton *buttonSender = sender;

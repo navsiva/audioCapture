@@ -41,11 +41,22 @@
     
     
     
+    //populate tableview with results even though no items have been currently searched
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.audioClipName contains[c] %@", searchController.searchBar.text];
+    if (searchController.searchBar.text.length < 1){
+        
+        self.clips = source;
+        
+    } else {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.audioClipName contains[c] %@", searchController.searchBar.text];
+
+        
+        self.clips = [[source filteredArrayUsingPredicate:predicate] mutableCopy];
+        
+    }
     
     
-    self.clips = [[source filteredArrayUsingPredicate:predicate] mutableCopy];
+    
    // self.clips = [NSMutableArray arrayWithArray:[source filteredArrayUsingPredicate:predicate] mutableCopy];
     
     [self.tableView reloadData];
@@ -56,13 +67,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //Custom styling of tableview
+    
     self.tableView.backgroundView = nil;
     self.tableView.backgroundView = [[UIView alloc] init];
     self.tableView.backgroundView.backgroundColor = [UIColor blackColor];
     
-//    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil]
-//     setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor grayColor], NSForegroundColorAttributeName, nil]
-//     forState:UIControlStateNormal];
+
+    //Custom styling of searchbar
     
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil]
      setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica" size:10], NSFontAttributeName, [UIColor darkGrayColor], NSForegroundColorAttributeName, nil]
@@ -71,7 +83,7 @@
 
     
     
-// self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+   
     
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     
@@ -87,7 +99,7 @@
     
     self.searchController.searchBar.barTintColor = [UIColor blackColor];
     
-    self.searchController.searchBar.placeholder = (@"Search by description ie. streetcar");
+    self.searchController.searchBar.placeholder = (@"Search audio clips");
     
     self.searchController.searchBar.tintColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
     

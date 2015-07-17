@@ -47,7 +47,7 @@
                                 <segment title="My Audio"/>
                                 <segment title="Public Audio"/>
                             </segments>
-                            <color key="tintColor" red="1" green="0.50038190299999996" blue="0.54355398499999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.088641242080000002" green="0.67720170449999995" blue="0.51143709640000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="scopeChanged:" destination="HdK-Iz-JmM" eventType="valueChanged" id="s3t-e0-b9d"/>
                             </connections>
@@ -443,31 +443,7 @@
                                                         </mask>
                                                     </variation>
                                                 </textField>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rIh-sy-4dm">
-                                                    <rect key="frame" x="57" y="39" width="486" height="101"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C33-ha-gt1">
-                                                    <rect key="frame" x="459" y="168" width="53" height="14"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="36" id="7RL-kr-Uyr"/>
-                                                        <constraint firstAttribute="height" constant="14" id="DTU-hD-JbG"/>
-                                                        <constraint firstAttribute="width" constant="36" id="FHR-MK-Psz"/>
-                                                        <constraint firstAttribute="width" constant="99" id="Ngy-zC-ecA"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" red="0.088641242080000002" green="0.67720170449999995" blue="0.51143709640000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="7RL-kr-Uyr"/>
-                                                            <exclude reference="DTU-hD-JbG"/>
-                                                            <exclude reference="FHR-MK-Psz"/>
-                                                            <exclude reference="Ngy-zC-ecA"/>
-                                                        </mask>
-                                                    </variation>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m98-Ky-i6X">
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m98-Ky-i6X">
                                                     <rect key="frame" x="494" y="160" width="51" height="31"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="31" id="ApV-Fx-Tuy"/>
@@ -488,7 +464,34 @@
                                                             <exclude reference="sz5-yE-3RB"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="shareSwitch:" destination="lZF-5a-klD" eventType="valueChanged" id="afS-ZX-zgy"/>
+                                                    </connections>
                                                 </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C33-ha-gt1">
+                                                    <rect key="frame" x="459" y="168" width="53" height="14"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="7RL-kr-Uyr"/>
+                                                        <constraint firstAttribute="height" constant="14" id="DTU-hD-JbG"/>
+                                                        <constraint firstAttribute="width" constant="36" id="FHR-MK-Psz"/>
+                                                        <constraint firstAttribute="width" constant="99" id="Ngy-zC-ecA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="7RL-kr-Uyr"/>
+                                                            <exclude reference="DTU-hD-JbG"/>
+                                                            <exclude reference="FHR-MK-Psz"/>
+                                                            <exclude reference="Ngy-zC-ecA"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rIh-sy-4dm">
+                                                    <rect key="frame" x="57" y="39" width="486" height="101"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="C33-ha-gt1" secondAttribute="trailing" constant="80" id="0rW-x2-59x"/>
@@ -777,7 +780,9 @@
                     <connections>
                         <outlet property="deleteButton" destination="QvJ-lk-0d5" id="6RZ-Ty-DAR"/>
                         <outlet property="infoTextField" destination="xXH-dF-vLq" id="uzw-CO-PFn"/>
+                        <outlet property="mySwitch" destination="m98-Ky-i6X" id="OQS-xN-gyc"/>
                         <outlet property="playButton" destination="Dls-bX-hC3" id="vDL-JD-IM2"/>
+                        <outlet property="shareLabel" destination="C33-ha-gt1" id="WiH-Sf-7Y3"/>
                         <outlet property="uploadButton" destination="O8f-De-s76" id="x0L-wG-Srj"/>
                     </connections>
                 </tableViewController>
