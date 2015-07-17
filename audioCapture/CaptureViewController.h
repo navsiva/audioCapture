@@ -24,5 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loopButton;
 @property (weak, nonatomic) IBOutlet UIButton *fasterLoopButton;
 @property (weak, nonatomic) IBOutlet UIButton *slowerLoopButton;
+@property (weak, nonatomic) IBOutlet UISlider *lengthSlider;
+@property (weak, nonatomic) IBOutlet UISlider *rateSlider;
 
 @end

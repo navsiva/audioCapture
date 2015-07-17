@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handlePress:)];
     
@@ -89,6 +90,17 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     [self.waveFormView setSecondaryWaveLineWidth:1.0];
     
     [self setSelectedInputType:SCSiriWaveformViewInputTypeRecorder];
+    
+}
+- (IBAction)lengthSlider:(id)sender {
+    
+
+
+
+}
+
+- (IBAction)rateSlider:(id)sender {
+    
     
 }
 

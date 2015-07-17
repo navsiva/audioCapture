@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LogTableViewController : UITableViewController<UIGestureRecognizerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
-@property (weak, nonatomic) IBOutlet UISearchBar *audioSearch;
+@interface LogTableViewController : UITableViewController<UIGestureRecognizerDelegate, UISearchControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UISegmentedControl *scopeBar;
 
 @end
