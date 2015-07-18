@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface LogTableViewController : UITableViewController<UIGestureRecognizerDelegate, UISearchControllerDelegate>
+
+@interface LogTableViewController : UITableViewController<UIGestureRecognizerDelegate, UISearchControllerDelegate, AVAudioPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *scopeBar;
 

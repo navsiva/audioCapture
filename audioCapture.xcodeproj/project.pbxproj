@@ -19,7 +19,6 @@
 		9288D23D1B5454A400E50735 /* LogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D23C1B5454A400E50735 /* LogTableViewCell.m */; };
 		9288D2401B545A9300E50735 /* UploadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9288D23F1B545A9300E50735 /* UploadTableViewController.m */; };
 		9288D2421B545E6100E50735 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9288D2411B545E6100E50735 /* AVFoundation.framework */; };
-		92C48A601B585B5300485160 /* ProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C48A5F1B585B5300485160 /* ProfileTableViewController.m */; };
 		92C48A621B593F3000485160 /* LogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92C48A611B593F3000485160 /* LogTableViewController.m */; };
 		92DC3A701B559B0500535DE4 /* SCSiriWaveformView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DC3A6F1B559B0500535DE4 /* SCSiriWaveformView.m */; };
 		92DC3A721B55AB2800535DE4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC3A711B55AB2800535DE4 /* Parse.framework */; };
@@ -70,8 +69,6 @@
 		9288D23E1B545A9300E50735 /* UploadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UploadTableViewController.h; path = ../UploadTableViewController.h; sourceTree = "<group>"; };
 		9288D23F1B545A9300E50735 /* UploadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UploadTableViewController.m; path = ../UploadTableViewController.m; sourceTree = "<group>"; };
 		9288D2411B545E6100E50735 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		92C48A5E1B585B5300485160 /* ProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileTableViewController.h; sourceTree = "<group>"; };
-		92C48A5F1B585B5300485160 /* ProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileTableViewController.m; sourceTree = "<group>"; };
 		92C48A611B593F3000485160 /* LogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogTableViewController.m; sourceTree = "<group>"; };
 		92DC3A6E1B559B0500535DE4 /* SCSiriWaveformView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSiriWaveformView.h; sourceTree = "<group>"; };
 		92DC3A6F1B559B0500535DE4 /* SCSiriWaveformView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSiriWaveformView.m; sourceTree = "<group>"; };
@@ -163,8 +160,6 @@
 		9288D2061B54269F00E50735 /* audioCapture */ = {
 			isa = PBXGroup;
 			children = (
-				92C48A5E1B585B5300485160 /* ProfileTableViewController.h */,
-				92C48A5F1B585B5300485160 /* ProfileTableViewController.m */,
 				92DC3A6E1B559B0500535DE4 /* SCSiriWaveformView.h */,
 				92DC3A6F1B559B0500535DE4 /* SCSiriWaveformView.m */,
 				92C48A611B593F3000485160 /* LogTableViewController.m */,
@@ -316,7 +311,6 @@
 				92DC3A8D1B56CD3000535DE4 /* AudioClip.m in Sources */,
 				9288D23D1B5454A400E50735 /* LogTableViewCell.m in Sources */,
 				9288D2401B545A9300E50735 /* UploadTableViewController.m in Sources */,
-				92C48A601B585B5300485160 /* ProfileTableViewController.m in Sources */,
 				9288D20D1B54269F00E50735 /* AppDelegate.m in Sources */,
 				92DC3A701B559B0500535DE4 /* SCSiriWaveformView.m in Sources */,
 				9288D20A1B54269F00E50735 /* main.m in Sources */,

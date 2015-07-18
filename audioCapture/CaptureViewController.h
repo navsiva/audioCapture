@@ -27,4 +27,6 @@
 @property (weak, nonatomic) IBOutlet UISlider *lengthSlider;
 @property (weak, nonatomic) IBOutlet UISlider *rateSlider;
 
+@property (nonatomic, strong) AudioClip *audioClip;
+
 @end

@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AudioClip.h"
 #import "CaptureViewController.h"
+#import "LogTableViewCell.h"
 
 
 

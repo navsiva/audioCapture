@@ -18,50 +18,85 @@
 
 @implementation UploadTableViewController
 
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self.navigationItem setHidesBackButton:YES];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    
-    NSString *urlString = self.audioClip.localURLString;
+    
+    self.uploadButton.backgroundColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
+    
+    [self.infoTextField becomeFirstResponder];
+
+//    NSString *urlString = self.audioClip.localURLString;
 //
-    NSURL *url = [NSURL URLWithString:urlString];
+//    NSURL *url = [NSURL URLWithString:urlString];
+    
+    
+    [self.audioClip.audioClip getDataInBackgroundWithBlock:^(NSData * data, NSError * error){
+    
+        self.player = [[AVAudioPlayer alloc] initWithData:data error:nil];
+        
+        [self.player setDelegate:self];
+        
+        self.player.meteringEnabled= YES;
+    
+    
+    }];
+    
+    
     
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    [self.player setDelegate:self];
-    self.player.meteringEnabled= YES;
-
 
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    
+    [self.mySwitch setOn:self.audioClip.isPublic];
+
+    
+    self.infoTextField.text = self.audioClip.audioClipName;
+    
+    if (self.audioClip.isPublic){
+        
+            self.shareLabel.text = @"Share";
+            self.shareLabel.alpha = 1.0;
+            self.shareLabel.textColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
+
+        }
+    
+    else {
+        
+            self.shareLabel.text = @"Share";
+            self.shareLabel.alpha = 0.5;
+            self.shareLabel.textColor = [UIColor darkGrayColor];
+
+    }
+
 }
+
+    
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
-    
-//    [self upload:self];
-    // Dispose of any resources that can be recreated.
+
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     return 2;
 }
 - (IBAction)play:(id)sender {
-    
-    
     
     [self.player play];
 }
@@ -70,93 +105,96 @@
     
     if ([self.mySwitch isOn]) {
         
+        self.shareLabel.text = @"Share";
+        self.shareLabel.alpha = 1.0;
         self.shareLabel.textColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
-        [self.mySwitch setOn:YES animated:YES];
     } else {
-        
+        self.shareLabel.text = @"Share";
+        self.shareLabel.alpha = 0.5;
         self.shareLabel.textColor = [UIColor darkGrayColor];
-        [self.mySwitch setOn:NO animated:YES];
     }
 }
 
+- (IBAction)textCheck:(id)sender {
+    
+    
+    
+    if (self.infoTextField.text.length < 2 ){
+       
+        self.uploadButton.alpha = 0.25;
+        self.uploadButton.enabled = NO;
+        self.mySwitch.enabled = NO;
+    }
+}
 
+- (IBAction)textChanged:(id)sender {
+    
+    if (self.infoTextField.text.length > 2){
 
+        self.uploadButton.alpha = 1.0;
+        self.uploadButton.enabled = YES;
+        self.mySwitch.enabled = YES;
+        
+    } else {
+        
+        self.uploadButton.alpha = 0.25;
+        self.uploadButton.enabled = NO;
+        self.mySwitch.enabled = NO;
+    }
 
+}
+- (IBAction)uploadProgress:(id)sender {
+    
+    self.uploadButton.backgroundColor = [UIColor colorWithRed:0.992 green:0.322 blue:0.251 alpha:1.0];
+
+}
+- (IBAction)backToRecord:(id)sender {
+    
+    self.audioClip.isPublic = self.mySwitch.isOn;
+    
+    self.audioClip.audioClipName = self.infoTextField.text;
+    
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
 - (IBAction)upload:(id)sender {
     
-//    UIButton *buttonSender = sender;
+    self.audioClip.isPublic = self.mySwitch.isOn;
     
     self.audioClip.audioClipName = self.infoTextField.text;
 
-    [self.audioClip saveInBackground];
-    
-    self.navigationItem.rightBarButtonItem.enabled = YES;
+    [self.audioClip saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        });
+    }];
 
-    
-    
-     }
-    
+//    sleep(2);
+}
+
 - (IBAction)delete:(id)sender {
 
-//delete wave and start again
+    [self.audioClip deleteInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+        });
+    }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
+    if ([[segue identifier] isEqualToString:@"goBack"]) {
+        
+        [self.player stop];
+        
+        CaptureViewController *destination= segue.destinationViewController;
+        
+        destination.audioClip = self.audioClip;
+        
+    }
     
 }
-
-
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

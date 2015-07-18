@@ -21,6 +21,7 @@
 @dynamic objectId;
 @dynamic localURLString;
 @dynamic creator;
+@dynamic isPublic;
 
 + (void)load {
     [self registerSubclass];

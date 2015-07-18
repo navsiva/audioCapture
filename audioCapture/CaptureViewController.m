@@ -15,9 +15,6 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
 @interface CaptureViewController ()
 
-
-
-//declaring instance variables
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 @property (nonatomic, strong) AVAudioPlayer *player;
 
@@ -26,7 +23,6 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
 @property (nonatomic, assign) SCSiriWaveformViewInputType selectedInputType;
 
-@property (nonatomic, strong) AudioClip *audioClip;
 
 
 
@@ -35,10 +31,60 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 @implementation CaptureViewController
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+//-(void)recorderPlayer {
+//    
+//    if (self.player.isPlaying){
+//        
+//
+//        
+//    }
+//    
+//    
+//}
+//
+//
+
+-(void)viewWillDisappear:(BOOL)animated{
     
 
+    [self.player stop];
+
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self.navigationItem setHidesBackButton:YES];
+
+    
+    [self.player stop];
+
+    
+    if (!self.audioClip.isDataAvailable){
+    [self.playButton setBackgroundColor:[UIColor darkGrayColor]];
+//    [self.loopButton setBackgroundColor:[UIColor darkGrayColor]];
+//    [self.stopButton setBackgroundColor:[UIColor darkGrayColor]];
+    }
+    else {
+    [self.playButton setBackgroundColor:[UIColor colorWithRed:0.929 green:0.502 blue:0.553 alpha:1]];
+//    [self.stopButton setBackgroundColor:[UIColor colorWithRed:0.929 green:0.502 blue:0.553 alpha:1]];
+    }
+//
+}
+
+
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.audioClip.audioClip getDataInBackgroundWithBlock:^(NSData * data, NSError * error){
+        
+        self.player = [[AVAudioPlayer alloc] initWithData:data error:nil];
+        
+        [self.player setDelegate:self];
+        
+        self.player.meteringEnabled= YES;
+    }];
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handlePress:)];
     
@@ -46,15 +92,12 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     longPress.delegate = self;
     [self.recordButton addGestureRecognizer:longPress];
     
-    
+    if (!self.audioClip.isDataAvailable){
     self.navigationItem.rightBarButtonItem.enabled = NO;
-
-        
+    }
 
     // Disable Stop/Play button when application launches
-    [self.stopButton setEnabled:NO];
-    [self.playButton setEnabled:NO];
-    
+
     // Set the audio file
     NSArray *pathComponents = [NSArray arrayWithObjects:
                                [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], @"MyAudioMemo.m4a", nil];
@@ -78,10 +121,11 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     self.recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
     self.recorder.delegate = self;
     self.recorder.meteringEnabled = YES;
+    
+    if (!self.audioClip.isDataAvailable){
     [self.recorder prepareToRecord];
-    
+    }
     //setting up waveform
-    
     CADisplayLink *displaylink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateMeters)];
     [displaylink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
     
@@ -92,6 +136,18 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     [self setSelectedInputType:SCSiriWaveformViewInputTypeRecorder];
     
 }
+
+
+- (IBAction)backToSearch:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+
+
+
+
 - (IBAction)lengthSlider:(id)sender {
     
 
@@ -107,20 +163,18 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
 -(void)handlePress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
-    
+
     self.navigationItem.rightBarButtonItem.enabled = NO;
 
-    
     if (gestureRecognizer.state != UIGestureRecognizerStateEnded) {
         return;
     }
     
     //        // Pause recording
             [self.recorder stop];
-            [self.recordButton setTitle:@"Rec" forState:UIControlStateNormal];
 
             [self.recordButton setBackgroundColor:[UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0]];
-    
+            [self.playButton setBackgroundColor:[UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0]];
             self.navigationItem.rightBarButtonItem.enabled = YES;
     
 
@@ -141,7 +195,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     
     audioClip.localURLString = [self.recorder.url absoluteString];
     
-    audioClip.audioClipName = @"First Recording";
+    audioClip.audioClipName = nil;
     
     [audioClip pinInBackground];
     
@@ -149,7 +203,9 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     
     
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:nil];
+    
     [self.player setDelegate:self];
+    
     self.player.meteringEnabled= YES;
     
     
@@ -177,10 +233,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     }
     
 
-    [self.stopButton setEnabled:YES];
     [self.playButton setEnabled:NO];
-    
-    
     
 }
 
@@ -190,46 +243,34 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 - (IBAction)recordTapped:(id)sender {
     
     self.navigationItem.rightBarButtonItem.enabled = YES;
-
-    
-
     
 
 }
 
 - (IBAction)playTapped:(id)sender {
     
-    
-    
-    
-
-    
     if (!self.recorder.recording){
+       
         [self.playButton setBackgroundColor:[UIColor colorWithRed:0.992 green:0.322 blue:0.251 alpha:1.0]];
-        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:nil];
-        [self.player setDelegate:self];
-        self.player.meteringEnabled= YES;
+        
+        //self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.recorder.url error:nil];
+        //[self.player setDelegate:self];
+        //self.player.meteringEnabled = YES;
         [self.player play];
         
     }
+
+        
+    
 }
-//- (IBAction)pauseTapped:(id)sender {
-//    self.player.numberOfLoops = 0;
-//    
-//    [self.player pause];
-//    [self.pauseButton setTitle:@"Playback Paused" forState:UIControlStateNormal];
-//    
-//    [self.pauseButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-//    
-//    [self.recorder pause];
-//    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
-//    [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//
-//    [self.playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//
-//    
-//    
-//}
+- (IBAction)stopTapped:(id)sender {
+    self.player.numberOfLoops = 0;
+    [self.player stop];
+    [self.recorder stop];
+        
+    
+}
+
 - (IBAction)loopTapped:(id)sender {
     self.player.enableRate=YES;
 
@@ -239,42 +280,42 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     [self.player play];
 }
 
-- (IBAction)loopFaster:(id)sender {
-    self.player.enableRate=YES;
-
-    [self.player prepareToPlay];
-    self.player.rate = 6.0f;
-    self.player.numberOfLoops = -1;
-  
-    
-    
-    [self.player play];
-    
-
-    
-    NSLog(@"%f", self.player.rate);
-    
-    
-}
-
-- (IBAction)loopSlower:(id)sender {
-    
-    
-    self.player.enableRate=YES;
-    
-    [self.player prepareToPlay];
-    self.player.rate = 0.1f;
-    self.player.numberOfLoops = -1;
-    
-    
-    
-    [self.player play];
-    
-    
-    
-    NSLog(@"%f", self.player.rate);
-    
-}
+//- (IBAction)loopFaster:(id)sender {
+//    self.player.enableRate=YES;
+//
+//    [self.player prepareToPlay];
+//    self.player.rate = 6.0f;
+//    self.player.numberOfLoops = -1;
+//  
+//    
+//    
+//    [self.player play];
+//    
+//
+//    
+//    NSLog(@"%f", self.player.rate);
+//    
+//    
+//}
+//
+//- (IBAction)loopSlower:(id)sender {
+//    
+//    
+//    self.player.enableRate=YES;
+//    
+//    [self.player prepareToPlay];
+//    self.player.rate = 0.1f;
+//    self.player.numberOfLoops = -1;
+//    
+//    
+//    
+//    [self.player play];
+//    
+//    
+//    
+//    NSLog(@"%f", self.player.rate);
+//    
+//}
 
 
 #pragma mark - THIS IS WHERE THE PFOBJECT IS SENT
@@ -313,16 +354,10 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 //}
 
 
-- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     
     [self.playButton setBackgroundColor:[UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0]];
     
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Done"
-//                                                    message: @"Finish playing the recording!"
-//                                                   delegate: nil
-//                                          cancelButtonTitle:@"OK"
-//                                          otherButtonTitles:nil];
-//    [alert show];
 }
 
 
@@ -330,29 +365,20 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 - (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
     
     [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
-    [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
-
     
-    [self.stopButton setEnabled:NO];
+    [self.recordButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
     [self.playButton setEnabled:YES];
 }
 
-
-
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
 - (void)updateMeters
 {
     CGFloat normalizedValue;
-    
     
     if ([self.recorder isRecording]) {
         
@@ -368,9 +394,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         
         
     }
-    
-    
-    
+
     
     [self.waveFormView updateWithLevel:normalizedValue];
 }
@@ -386,7 +410,8 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     return powf((powf(10.0f, 0.05f * decibels) - powf(10.0f, 0.05f * -60.0f)) * (1.0f / (1.0f - powf(10.0f, 0.05f * -60.0f))), 1.0f / 2.0f);
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
      if ([[segue identifier] isEqualToString:@"showUpload"]) {
          
@@ -394,18 +419,9 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
          
          UploadTableViewController *destination= segue.destinationViewController;
          
-         
-//         AudioClip *object = self.audioClip;
-         
          destination.audioClip = self.audioClip;
-         
-         
-         
-         
-         
+        
      }
-    
-    
     
 }
 /*
