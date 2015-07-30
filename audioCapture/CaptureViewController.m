@@ -66,6 +66,9 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     [super viewDidLoad];
     
     
+    
+
+    
     Playcorder *newRecorder = [[Playcorder alloc] initWithAudioClip:self.audioClip];
     
     self.playCorder = newRecorder;
@@ -105,6 +108,9 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     [self.playCorder stop];
 
     [self updateUI];
+    
+//    [self.playCorder getDuration];
+    
 
  
 }
@@ -136,6 +142,13 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
     [self updateUI];
     
+    NSLog(@"%f", self.playCorder.getDuration);
+
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.929 green:0.502 blue:0.553 alpha:1];
+
+    
+
+    
 }
 
 -(IBAction)stopTapped:(id)sender {
@@ -161,6 +174,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     
     [self.playCorder canRecord];
     
+    
     if (self.playCorder.shouldRecord == NO){
         
         [self.recordButton setEnabled:NO];
@@ -169,6 +183,11 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         
         [self.playButton setBackgroundColor:[UIColor colorWithRed:0.929 green:0.502 blue:0.553 alpha:1]];
         
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
+
+
     }
     
     else {
@@ -181,8 +200,13 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         
         [self.recordButton setBackgroundColor:[UIColor colorWithRed:0.929 green:0.502 blue:0.553 alpha:1]];
         
+        
+
+        
+        
         self.navigationItem.rightBarButtonItem.enabled = NO;
 
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
 
     }
     

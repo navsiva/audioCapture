@@ -146,8 +146,7 @@
     
     NSLog(@"couldn't find index path");
     
-    } else {
-        
+    } else if (self.scopeBar.selectedSegmentIndex == 0){
         
         AudioClip *object = self.clips[indexPath.row];
         

@@ -187,6 +187,20 @@
 
 }
 
+-(double)getDuration {
+    
+    NSURL *audioClipLocation = self.player.url;
+    NSError *error = nil;
+    AVAudioPlayer* avAudioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:audioClipLocation error:&error];
+    
+    double duration = avAudioPlayer.duration;
+    avAudioPlayer = nil;
+
+    return duration;
+    
+    
+}
+
 
 -(void)setupPlayer {
     
@@ -202,6 +216,11 @@
         }];
         
     }
+    
+}
+
+-(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
+    
     
 }
 

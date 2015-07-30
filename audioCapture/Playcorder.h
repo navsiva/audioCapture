@@ -43,6 +43,8 @@ audioClip;
 
 -(instancetype)initWithAudioClip:(AudioClip *)audioClip;
 
+-(double)getDuration;
+
 
 @end
 
