@@ -40,7 +40,6 @@
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="WoD-16-r2S">
                             <rect key="frame" x="180" y="7" width="240" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <segments>
                                 <segment title="My Audio"/>
                                 <segment title="Public Audio"/>
@@ -78,10 +77,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="redraw" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wzk-bI-gqV">
-                                <rect key="frame" x="57" y="331" width="486" height="209"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AhI-Ti-xZS" customClass="SCSiriWaveformView">
                                 <rect key="frame" x="57" y="102" width="486" height="96"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -120,18 +115,12 @@
                                 <color key="minimumTrackTintColor" red="0.088641242077504484" green="0.67720170454545459" blue="0.51143709637134549" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="0.13089341252766262" green="1" blue="0.75522121834384304" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="0.0078431377190000002" green="0.99607849120000003" blue="0.80392163989999998" alpha="1" colorSpace="deviceRGB"/>
-                                <connections>
-                                    <action selector="lengthSlider:" destination="0XO-p0-ohm" eventType="valueChanged" id="AAs-0f-WVv"/>
-                                </connections>
                             </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="zY6-Aj-OjJ">
                                 <rect key="frame" x="119" y="273" width="363" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.70728772095959602" green="0.34868258469208319" blue="0.37715369098595775" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="1" green="0.50038190299999996" blue="0.54355398499999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" red="1" green="0.43118921742710337" blue="0.45129759244872913" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="rateSlider:" destination="0XO-p0-ohm" eventType="valueChanged" id="uG2-VL-gct"/>
-                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGU-8A-ceR">
                                 <rect key="frame" x="57" y="263" width="50" height="50"/>
@@ -168,7 +157,6 @@
                             <constraint firstItem="PYR-k3-fUg" firstAttribute="top" secondItem="hsu-QE-Oei" secondAttribute="bottom" constant="8" symbolic="YES" id="8Qy-U1-hgm"/>
                             <constraint firstItem="zY6-Aj-OjJ" firstAttribute="leading" secondItem="AGU-8A-ceR" secondAttribute="trailing" constant="14" id="AIh-Oz-rIY"/>
                             <constraint firstItem="hsu-QE-Oei" firstAttribute="baseline" secondItem="ZOD-rl-DaQ" secondAttribute="baseline" id="Fnv-xo-fr1"/>
-                            <constraint firstItem="wzk-bI-gqV" firstAttribute="top" secondItem="uUb-CB-59k" secondAttribute="bottom" constant="267" id="Ft1-Lm-5Su"/>
                             <constraint firstItem="hsu-QE-Oei" firstAttribute="top" secondItem="ZOD-rl-DaQ" secondAttribute="top" id="Ils-dU-UEb"/>
                             <constraint firstItem="AhI-Ti-xZS" firstAttribute="leading" secondItem="C4M-D2-0o8" secondAttribute="leadingMargin" constant="41" id="KFS-n5-Uij"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AhI-Ti-xZS" secondAttribute="trailing" constant="41" id="LgY-yH-mP7"/>
@@ -183,12 +171,9 @@
                             <constraint firstItem="6iM-8k-F6q" firstAttribute="leading" secondItem="ZOD-rl-DaQ" secondAttribute="trailing" constant="14" id="bhJ-cU-qJJ"/>
                             <constraint firstItem="hsu-QE-Oei" firstAttribute="top" secondItem="C4M-D2-0o8" secondAttribute="top" constant="206" id="cwQ-qE-nwT"/>
                             <constraint firstItem="hsu-QE-Oei" firstAttribute="centerY" secondItem="6iM-8k-F6q" secondAttribute="centerY" id="hqu-h6-VWR"/>
-                            <constraint firstItem="0Jy-p2-KqZ" firstAttribute="top" secondItem="wzk-bI-gqV" secondAttribute="bottom" constant="60" id="klH-eb-tA1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="wzk-bI-gqV" secondAttribute="trailing" constant="41" id="nHd-e3-ljB"/>
                             <constraint firstItem="zY6-Aj-OjJ" firstAttribute="centerY" secondItem="AGU-8A-ceR" secondAttribute="centerY" id="nMs-gO-NBn"/>
                             <constraint firstItem="PYR-k3-fUg" firstAttribute="bottom" secondItem="AGU-8A-ceR" secondAttribute="bottom" id="pU1-qo-Yuh"/>
                             <constraint firstItem="zY6-Aj-OjJ" firstAttribute="top" secondItem="6iM-8k-F6q" secondAttribute="bottom" constant="27" id="s1k-9u-FEZ"/>
-                            <constraint firstItem="wzk-bI-gqV" firstAttribute="leading" secondItem="C4M-D2-0o8" secondAttribute="leadingMargin" constant="41" id="skS-Eh-1dR"/>
                             <constraint firstItem="zY6-Aj-OjJ" firstAttribute="leading" secondItem="6iM-8k-F6q" secondAttribute="leading" id="tlW-1e-Dew"/>
                             <constraint firstItem="ZOD-rl-DaQ" firstAttribute="top" secondItem="AhI-Ti-xZS" secondAttribute="bottom" constant="8" id="zAP-vz-L0e"/>
                         </constraints>
@@ -208,10 +193,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="lengthSlider" destination="6iM-8k-F6q" id="vTD-Ek-htA"/>
                         <outlet property="loopButton" destination="AGU-8A-ceR" id="6WQ-B6-Qq6"/>
                         <outlet property="playButton" destination="hsu-QE-Oei" id="evc-lR-vvB"/>
-                        <outlet property="rateSlider" destination="zY6-Aj-OjJ" id="AvB-d9-PVa"/>
                         <outlet property="recordButton" destination="ZOD-rl-DaQ" id="Jaz-U8-w0z"/>
                         <outlet property="stopButton" destination="PYR-k3-fUg" id="Agh-pg-c5T"/>
                         <outlet property="waveFormView" destination="AhI-Ti-xZS" id="Svw-ku-flO"/>
@@ -267,7 +250,7 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rIh-sy-4dm">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rIh-sy-4dm" customClass="SCSiriWaveformView">
                                                     <rect key="frame" x="57" y="39" width="486" height="101"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -295,6 +278,19 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XJM-A7-LhL" id="uK0-OY-q3E">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8f-De-s76">
+                                                    <rect key="frame" x="57" y="55" width="486" height="26"/>
+                                                    <color key="backgroundColor" red="0.0078431377190000002" green="0.99607849120000003" blue="0.80392163989999998" alpha="1" colorSpace="deviceRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <state key="normal" title="Upload">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="upload:" destination="lZF-5a-klD" eventType="touchUpInside" id="GVX-oD-Z39"/>
+                                                        <action selector="uploadProgress:" destination="lZF-5a-klD" eventType="touchDown" id="PBZ-Lz-rmj"/>
+                                                    </connections>
+                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dls-bX-hC3">
                                                     <rect key="frame" x="57" y="21" width="486" height="26"/>
                                                     <color key="backgroundColor" red="0.1185963318" green="0.90605271460000003" blue="0.68427023499999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -318,20 +314,6 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="delete:" destination="lZF-5a-klD" eventType="touchUpInside" id="SP2-Xf-ZPP"/>
-                                                        <segue destination="0XO-p0-ohm" kind="show" id="TQP-Lp-0cH"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8f-De-s76">
-                                                    <rect key="frame" x="57" y="55" width="486" height="26"/>
-                                                    <color key="backgroundColor" red="0.0078431377190000002" green="0.99607849120000003" blue="0.80392163989999998" alpha="1" colorSpace="deviceRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <state key="normal" title="Upload">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="upload:" destination="lZF-5a-klD" eventType="touchUpInside" id="GVX-oD-Z39"/>
-                                                        <action selector="uploadProgress:" destination="lZF-5a-klD" eventType="touchDown" id="PBZ-Lz-rmj"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -375,6 +357,7 @@
                         <outlet property="playButton" destination="Dls-bX-hC3" id="vDL-JD-IM2"/>
                         <outlet property="shareLabel" destination="C33-ha-gt1" id="WiH-Sf-7Y3"/>
                         <outlet property="uploadButton" destination="O8f-De-s76" id="x0L-wG-Srj"/>
+                        <outlet property="waveFormView" destination="rIh-sy-4dm" id="aNq-8L-Yx8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tX3-51-df6" userLabel="First Responder" sceneMemberID="firstResponder"/>

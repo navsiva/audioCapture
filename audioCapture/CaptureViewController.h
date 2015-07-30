@@ -12,21 +12,25 @@
 #import <Parse/Parse.h>
 #import "AudioClip.h"
 #import "UploadTableViewController.h"
+#import "Playcorder.h"
 
 @interface CaptureViewController : UIViewController<AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
-@property (weak, nonatomic) IBOutlet UIButton *stopButton;
-
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
-@property (weak, nonatomic) IBOutlet UIButton *pauseButton;
+@property (weak, nonatomic) IBOutlet UISlider *lengthSlider;
 
 @property (weak, nonatomic) IBOutlet UIButton *loopButton;
-@property (weak, nonatomic) IBOutlet UIButton *fasterLoopButton;
-@property (weak, nonatomic) IBOutlet UIButton *slowerLoopButton;
-@property (weak, nonatomic) IBOutlet UISlider *lengthSlider;
+@property (weak, nonatomic) IBOutlet UIButton *stopButton;
 @property (weak, nonatomic) IBOutlet UISlider *rateSlider;
 
 @property (nonatomic, strong) AudioClip *audioClip;
+
+
+@property (strong) Playcorder *playCorder;
+
+
+
+
 
 @end

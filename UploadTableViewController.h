@@ -10,7 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AudioClip.h"
 #import "CaptureViewController.h"
+#import "SCSiriWaveformView.h"
 #import "LogTableViewCell.h"
+#import "Playcorder.h"
 
 
 
@@ -25,9 +27,11 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
-@property (nonatomic, strong) AudioClip *audioClip;
+//@property (nonatomic, strong) AudioClip *audioClip;
 
 @property (weak, nonatomic) IBOutlet UISwitch *mySwitch;
 @property (weak, nonatomic) IBOutlet UILabel *shareLabel;
+
+@property (strong) Playcorder *playCorder;
 
 @end

@@ -15,13 +15,11 @@
 @dynamic audioClip;
 @dynamic audioClipDetails;
 @dynamic audioClipName;
-@dynamic audioClipLocation;
-@dynamic audioClipTag;
 @dynamic createdAt;
-@dynamic objectId;
 @dynamic localURLString;
 @dynamic creator;
 @dynamic isPublic;
+@dynamic isEditable;
 
 + (void)load {
     [self registerSubclass];

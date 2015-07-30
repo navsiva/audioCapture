@@ -8,10 +8,17 @@
 
 #import "UploadTableViewController.h"
 
+typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
+    SCSiriWaveformViewInputTypeRecorder,
+    SCSiriWaveformViewInputTypePlayer
+};
+
 @interface UploadTableViewController ()
 
-@property (nonatomic, strong) AVAudioPlayer *player;
 
+@property (weak, nonatomic) IBOutlet SCSiriWaveformView *waveFormView;
+
+@property (nonatomic, assign) SCSiriWaveformViewInputType selectedInputType;
 
 @end
 
@@ -23,28 +30,13 @@
     
     [self.navigationItem setHidesBackButton:YES];
 }
-- (void)viewDidLoad {
+-(void)viewDidLoad {
     [super viewDidLoad];
+
     
     self.uploadButton.backgroundColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
     
     [self.infoTextField becomeFirstResponder];
-
-//    NSString *urlString = self.audioClip.localURLString;
-//
-//    NSURL *url = [NSURL URLWithString:urlString];
-    
-    
-    [self.audioClip.audioClip getDataInBackgroundWithBlock:^(NSData * data, NSError * error){
-    
-        self.player = [[AVAudioPlayer alloc] initWithData:data error:nil];
-        
-        [self.player setDelegate:self];
-        
-        self.player.meteringEnabled= YES;
-    
-    
-    }];
     
     
     
@@ -55,12 +47,12 @@
     
     
     
-    [self.mySwitch setOn:self.audioClip.isPublic];
+    [self.mySwitch setOn:self.playCorder.audioClip.isPublic];
 
     
-    self.infoTextField.text = self.audioClip.audioClipName;
+    self.infoTextField.text = self.playCorder.audioClip.audioClipName;
     
-    if (self.audioClip.isPublic){
+    if (self.playCorder.audioClip.isPublic){
         
             self.shareLabel.text = @"Share";
             self.shareLabel.alpha = 1.0;
@@ -75,13 +67,19 @@
             self.shareLabel.textColor = [UIColor darkGrayColor];
 
     }
+    
+    
+    
+    //setting up waveform
+    
+    [self setupWaveform];
 
 }
 
-    
 
 
-- (void)didReceiveMemoryWarning {
+
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
 
@@ -93,15 +91,15 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
 }
-- (IBAction)play:(id)sender {
+-(IBAction)play:(id)sender {
     
-    [self.player play];
+    [self.playCorder play];
 }
 
-- (IBAction)shareSwitch:(id)sender {
+-(IBAction)shareSwitch:(id)sender {
     
     if ([self.mySwitch isOn]) {
         
@@ -115,8 +113,7 @@
     }
 }
 
-- (IBAction)textCheck:(id)sender {
-    
+-(IBAction)textCheck:(id)sender {
     
     
     if (self.infoTextField.text.length < 2 ){
@@ -127,7 +124,7 @@
     }
 }
 
-- (IBAction)textChanged:(id)sender {
+-(IBAction)textChanged:(id)sender {
     
     if (self.infoTextField.text.length > 2){
 
@@ -143,55 +140,73 @@
     }
 
 }
-- (IBAction)uploadProgress:(id)sender {
+-(IBAction)uploadProgress:(id)sender {
     
     self.uploadButton.backgroundColor = [UIColor colorWithRed:0.992 green:0.322 blue:0.251 alpha:1.0];
 
 }
-- (IBAction)backToRecord:(id)sender {
+-(IBAction)backToRecord:(id)sender {
     
-    self.audioClip.isPublic = self.mySwitch.isOn;
+    self.playCorder.audioClip.isPublic = self.mySwitch.isOn;
     
-    self.audioClip.audioClipName = self.infoTextField.text;
+    self.playCorder.audioClip.audioClipName = self.infoTextField.text;
     
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (IBAction)upload:(id)sender {
+-(IBAction)upload:(id)sender {
     
-    self.audioClip.isPublic = self.mySwitch.isOn;
+    self.playCorder.audioClip.isPublic = self.mySwitch.isOn;
     
-    self.audioClip.audioClipName = self.infoTextField.text;
+    self.playCorder.audioClip.audioClipName = self.infoTextField.text;
 
-    [self.audioClip saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+    [self.playCorder.audioClip saveInBackgroundWithBlock:^(BOOL succeded, NSError *error){
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.navigationController popToRootViewControllerAnimated:YES];
         });
     }];
 
-//    sleep(2);
 }
 
-- (IBAction)delete:(id)sender {
+-(IBAction)delete:(id)sender {
 
-    [self.audioClip deleteInBackgroundWithBlock:^(BOOL succeded, NSError *error){
+    [self.playCorder.audioClip deleteInBackgroundWithBlock:^(BOOL succeded, NSError *error){
         
         dispatch_async(dispatch_get_main_queue(), ^{
 
+            
+         [self.navigationController popToRootViewControllerAnimated:YES];
         });
     }];
 }
+
+-(void)setupWaveform {
+    
+    CADisplayLink *displaylink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateMeters)];
+    [displaylink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
+    
+    [self.waveFormView setWaveColor:[UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0]];
+    [self.waveFormView setPrimaryWaveLineWidth:3.0f];
+    [self.waveFormView setSecondaryWaveLineWidth:1.0];
+    [self setSelectedInputType:SCSiriWaveformViewInputTypeRecorder];
+}
+
+- (void)updateMeters
+{
+    [self.waveFormView updateWithLevel:[self.playCorder meterValue]];
+}
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([[segue identifier] isEqualToString:@"goBack"]) {
         
-        [self.player stop];
+        [self.playCorder stop];
         
         CaptureViewController *destination= segue.destinationViewController;
         
-        destination.audioClip = self.audioClip;
+        destination.playCorder = self.playCorder;
         
     }
     

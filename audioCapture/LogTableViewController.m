@@ -27,6 +27,7 @@
 
 @implementation LogTableViewController
 
+
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController{
     
     NSMutableArray *source;
@@ -99,10 +100,22 @@
     [[PFUser currentUser] saveInBackground];
 
     //Setup and assign LPGR
+    
+ 
+    
+    
     UILongPressGestureRecognizer *cellLongPressed = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(handleLongPress:)];
     cellLongPressed.minimumPressDuration = .5;
     cellLongPressed.delegate = self;
+    
     [self.tableView addGestureRecognizer:cellLongPressed];
+
+    
+    [self updateSearchResultsForSearchController:self.searchController];
+    
+    
+    
+   
     
 }
 
@@ -111,21 +124,30 @@
     [self scopeChanged:self.scopeBar];
 }
 
+
 -(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
+    
+    
     //Perform this after the long press is complete
     if (gestureRecognizer.state != UIGestureRecognizerStateEnded) {
         return;
     }
     
+    
+    
+
     //Set indexPath for deletion from long press position, remove objects from Parse
     CGPoint p = [gestureRecognizer locationInView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    
+    
     if (indexPath == nil){
     
     NSLog(@"couldn't find index path");
     
     } else {
+        
         
         AudioClip *object = self.clips[indexPath.row];
         
@@ -133,16 +155,16 @@
             
         [self.clips removeObject:object];
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             
             });
         }];
     }
+        
+
 }
-
-
 
 - (void)didReceiveMemoryWarning {
 
@@ -168,6 +190,7 @@
     
     if (self.scopeBar.selectedSegmentIndex == 1){
         
+
         
         //Query Parse to capture all results marked as Public when scope changes
         PFQuery *query = [[PFQuery alloc] initWithClassName:@"AudioClip"];
@@ -191,8 +214,8 @@
         
         
     } else {
-        
-        //Query Parse to capture all results created by device
+    
+
         PFQuery *query = [[PFQuery alloc] initWithClassName:@"AudioClip"];
         
         [query orderByDescending:@"createdAt"];
@@ -205,7 +228,11 @@
             self.allClips = [objects mutableCopy];
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 [self updateSearchResultsForSearchController:self.searchController];
+                
+                
+                
             });
             
         }];
@@ -242,8 +269,9 @@
 
         [[segue destinationViewController]setAudioClip:object];
         
-
-
+        
+        
+        
         
     }
     
