@@ -30,6 +30,11 @@
 //@property (nonatomic, strong) AudioClip *audioClip;
 
 @property (weak, nonatomic) IBOutlet UISwitch *mySwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *editSwitch;
+
+
+@property (weak, nonatomic) IBOutlet UILabel *editLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *shareLabel;
 
 @property (strong) Playcorder *playCorder;

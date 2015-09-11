@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
 
-    
+    [self.editSwitch setOn:self.playCorder.audioClip.isEditable];
     
     
     
@@ -54,7 +54,6 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     
     if (self.playCorder.audioClip.isPublic){
         
-            self.shareLabel.text = @"Share";
             self.shareLabel.alpha = 1.0;
             self.shareLabel.textColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
 
@@ -62,10 +61,33 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     
     else {
         
-            self.shareLabel.text = @"Share";
             self.shareLabel.alpha = 0.5;
             self.shareLabel.textColor = [UIColor darkGrayColor];
 
+    }
+    
+    // ****check to see if user is installation and if so allow full control if not check if isEditable and set UI accordingly.
+    
+    
+    if (self.playCorder.audioClip.isEditable){
+        
+        self.editLabel.alpha = 1.0;
+        self.editLabel.textColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
+        
+    }
+    
+    else {
+        
+        self.uploadButton.alpha = 0.25;
+        self.uploadButton.enabled = NO;
+        self.mySwitch.enabled = NO;
+        self.editSwitch.enabled = NO;
+        self.deleteButton.enabled = NO;
+        self.deleteButton.alpha = 0.25;
+        self.infoTextField.enabled = YES;
+        self.editLabel.alpha = 0.5;
+        self.editLabel.textColor = [UIColor darkGrayColor];
+        
     }
     
     
@@ -103,13 +125,22 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     
     if ([self.mySwitch isOn]) {
         
-        self.shareLabel.text = @"Share";
         self.shareLabel.alpha = 1.0;
         self.shareLabel.textColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
     } else {
-        self.shareLabel.text = @"Share";
         self.shareLabel.alpha = 0.5;
         self.shareLabel.textColor = [UIColor darkGrayColor];
+    }
+}
+- (IBAction)editSwitch:(id)sender {
+    
+    if ([self.editSwitch isOn]) {
+        
+        self.editLabel.alpha = 1.0;
+        self.editLabel.textColor = [UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0];
+    } else {
+        self.editLabel.alpha = 0.5;
+        self.editLabel.textColor = [UIColor darkGrayColor];
     }
 }
 
@@ -121,6 +152,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         self.uploadButton.alpha = 0.25;
         self.uploadButton.enabled = NO;
         self.mySwitch.enabled = NO;
+        self.editSwitch.enabled = NO;
     }
 }
 
@@ -131,12 +163,16 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         self.uploadButton.alpha = 1.0;
         self.uploadButton.enabled = YES;
         self.mySwitch.enabled = YES;
+        self.editSwitch.enabled = YES;
+        
         
     } else {
         
         self.uploadButton.alpha = 0.25;
         self.uploadButton.enabled = NO;
         self.mySwitch.enabled = NO;
+        self.editSwitch.enabled = YES;
+
     }
 
 }
@@ -147,6 +183,8 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 }
 -(IBAction)backToRecord:(id)sender {
     
+    self.playCorder.audioClip.isEditable = self.editSwitch.isOn;
+    
     self.playCorder.audioClip.isPublic = self.mySwitch.isOn;
     
     self.playCorder.audioClip.audioClipName = self.infoTextField.text;
@@ -155,6 +193,8 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(IBAction)upload:(id)sender {
+    
+    self.playCorder.audioClip.isEditable = self.editSwitch.isOn;
     
     self.playCorder.audioClip.isPublic = self.mySwitch.isOn;
     

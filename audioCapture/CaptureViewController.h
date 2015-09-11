@@ -10,7 +10,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "SCSiriWaveformView.h"
 #import <Parse/Parse.h>
-#import "AudioClip.h"
 #import "UploadTableViewController.h"
 #import "Playcorder.h"
 

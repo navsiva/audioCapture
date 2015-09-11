@@ -9,7 +9,6 @@
 #import "LogTableViewController.h"
 #import "CaptureViewController.h"
 #import <Parse/Parse.h>
-#import "AudioClip.h"
 
 @interface LogTableViewController () <UISearchResultsUpdating>
 
@@ -59,6 +58,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     
     [self.navigationItem setHidesBackButton:YES];
 

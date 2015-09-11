@@ -23,7 +23,8 @@ audioClip;
 
 @property (assign) BOOL shouldRecord;
 
-@property (assign) BOOL shouldLoop;
+@property (assign) BOOL shouldEdit;
+
 
 -(void)play;
 
@@ -37,7 +38,7 @@ audioClip;
 
 -(void)canRecord;
 
--(void)canPlay;
+-(void)canEdit;
 
 -(CGFloat)meterValue;
 

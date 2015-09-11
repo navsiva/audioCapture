@@ -40,14 +40,55 @@
     return self;
 }
 
+-(void)setupPlayer {
+    
+    if (self.audioClip.isDataAvailable){
+        
+        [self.audioClip.audioClip getDataInBackgroundWithBlock:^(NSData * data, NSError * error){
+            
+            self.player = [[AVAudioPlayer alloc] initWithData:data error:nil];
+            
+            [self.player setDelegate:self];
+            
+            self.player.meteringEnabled= YES;
+        }];
+        
+    }
+    
+}
+
+-(void)setupRecorder {
+    
+    if (!self.audioClip.isDataAvailable){
+        
+        
+        NSArray *pathComponents = [NSArray arrayWithObjects:
+                                   [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], @"MyAudioMemo.m4a", nil];
+        NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+        
+        
+        //    AVAudioSession *session = [AVAudioSession sharedInstance];
+        //    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+        
+        NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
+        [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
+        [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
+        [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
+        
+        self.recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
+        self.recorder.delegate = self;
+        self.recorder.meteringEnabled = YES;
+        
+    }
+    
+}
+
 -(void)record {
     
     
     [self stop];
     
     [self.recorder record];
-    
-    self.shouldLoop = NO;
 
 
     
@@ -86,7 +127,7 @@
     PFFile *audioFile = [PFFile fileWithName:@"MyAudioMemo.m4a" data:audioData];
     audioClip.audioClip = audioFile;
     
-    //set parse file to author as cretor
+    //set parse file to author as creator
     audioClip.creator = [PFInstallation currentInstallation];
     
     //set playfile location to parse url
@@ -105,6 +146,7 @@
     self.player.meteringEnabled = YES;
     
     }
+    
     
 }
 
@@ -143,86 +185,44 @@
    
 }
 
--(void)canPlay {
-    
-    
+-(void)canEdit {
 
-    
-    if (self.audioClip.isDataAvailable) {
+    if (self.audioClip.creator == ([PFInstallation currentInstallation])){
         
-        self.shouldLoop = YES;
-    }
-    else {
+        self.shouldEdit = YES;
         
-        self.shouldLoop = NO;
+    } else {
+        
+        self.shouldEdit = self.audioClip.isEditable;
     }
     
+ 
 }
 
 
 
--(void)setupRecorder {
-    
-    if (!self.audioClip.isDataAvailable){
-
-    
-    NSArray *pathComponents = [NSArray arrayWithObjects:
-                               [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject], @"MyAudioMemo.m4a", nil];
-    NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
-    
-    
-//    AVAudioSession *session = [AVAudioSession sharedInstance];
-//    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-    
-    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
-    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
-    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
-    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
-    
-    self.recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
-    self.recorder.delegate = self;
-    self.recorder.meteringEnabled = YES;
-    
-    }
-
-}
 
 -(double)getDuration {
     
-    NSURL *audioClipLocation = self.player.url;
-    NSError *error = nil;
-    AVAudioPlayer* avAudioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:audioClipLocation error:&error];
-    
-    double duration = avAudioPlayer.duration;
-    avAudioPlayer = nil;
+//    if (
+//    NSURL *audioClipLocation = self.recorder.url;
+//    NSError *error = nil;
+//    AVAudioPlayer* avAudioPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:(audioClipLocation) error:&error];
+//    
+    double duration = self.player.duration;
+//    avAudioPlayer = nil;
 
     return duration;
     
     
 }
 
+//-(void)exportAsset:(AVAsset*)asset toFile:(NSString*)filename overwrite:(BOOL)overwrite withMix:(AVAudioMix*)mix {
+//    
+//}
 
--(void)setupPlayer {
-    
-    if (self.audioClip.isDataAvailable){
-        
-        [self.audioClip.audioClip getDataInBackgroundWithBlock:^(NSData * data, NSError * error){
-            
-            self.player = [[AVAudioPlayer alloc] initWithData:data error:nil];
-            
-            [self.player setDelegate:self];
-            
-            self.player.meteringEnabled= YES;
-        }];
-        
-    }
-    
-}
 
--(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag {
-    
-    
-}
+
 
 -(CGFloat)meterValue {
     

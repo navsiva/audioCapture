@@ -36,6 +36,7 @@
 		92DC3A891B55AC3900535DE4 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC3A821B55AC3800535DE4 /* StoreKit.framework */; };
 		92DC3A8A1B55AC3900535DE4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DC3A831B55AC3800535DE4 /* SystemConfiguration.framework */; };
 		92DC3A8D1B56CD3000535DE4 /* AudioClip.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DC3A8C1B56CD3000535DE4 /* AudioClip.m */; };
+		92EDDB941B6C026F00880011 /* Trimcorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EDDB931B6C026F00880011 /* Trimcorder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,8 @@
 		92DC3A831B55AC3800535DE4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		92DC3A8B1B56CD3000535DE4 /* AudioClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioClip.h; path = ../AudioClip.h; sourceTree = "<group>"; };
 		92DC3A8C1B56CD3000535DE4 /* AudioClip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioClip.m; path = ../AudioClip.m; sourceTree = "<group>"; };
+		92EDDB921B6C026F00880011 /* Trimcorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trimcorder.h; sourceTree = "<group>"; };
+		92EDDB931B6C026F00880011 /* Trimcorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trimcorder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 		9288D2061B54269F00E50735 /* audioCapture */ = {
 			isa = PBXGroup;
 			children = (
+				92EDDB921B6C026F00880011 /* Trimcorder.h */,
+				92EDDB931B6C026F00880011 /* Trimcorder.m */,
 				92DC3A8B1B56CD3000535DE4 /* AudioClip.h */,
 				92DC3A8C1B56CD3000535DE4 /* AudioClip.m */,
 				92215A381B682B460021FBBB /* Playcorder.h */,
@@ -317,6 +322,7 @@
 				9288D23D1B5454A400E50735 /* LogTableViewCell.m in Sources */,
 				92215A3A1B682B460021FBBB /* Playcorder.m in Sources */,
 				9288D2401B545A9300E50735 /* UploadTableViewController.m in Sources */,
+				92EDDB941B6C026F00880011 /* Trimcorder.m in Sources */,
 				9288D20D1B54269F00E50735 /* AppDelegate.m in Sources */,
 				92DC3A701B559B0500535DE4 /* SCSiriWaveformView.m in Sources */,
 				9288D20A1B54269F00E50735 /* main.m in Sources */,

@@ -65,14 +65,16 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
+    [self.playCorder canEdit];
 
     
     Playcorder *newRecorder = [[Playcorder alloc] initWithAudioClip:self.audioClip];
     
     self.playCorder = newRecorder;
     
+    [self.playCorder canEdit];
+    
+    self.navigationItem.rightBarButtonItem.enabled = self.playCorder.shouldEdit;
 
     [self updateUI];
 
@@ -99,20 +101,27 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 -(void)handlePress:(UILongPressGestureRecognizer *)gestureRecognizer
 {
 
-    self.navigationItem.rightBarButtonItem.enabled = NO;
 
     if (gestureRecognizer.state != UIGestureRecognizerStateEnded) {
         return;
     }
     
     [self.playCorder stop];
+    
 
     [self updateUI];
     
-//    [self.playCorder getDuration];
-    
+    [self.recordButton setBackgroundColor:[UIColor colorWithRed:0.267 green:0.843 blue:0.659 alpha:1.0]];
 
  
+}
+- (IBAction)lengthSliderChanged:(UISlider *)sender {
+
+    float newDuration = (sender.value) * (self.playCorder.getDuration);
+    
+    NSLog(@"slider value = %f", newDuration);
+    
+    
 }
 
 
@@ -127,22 +136,14 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 }
 
 
-
-
--(IBAction)recordTapped:(id)sender {
-    
-    
-    
-
-}
-
 -(IBAction)playTapped:(id)sender {
     
     [self.playCorder play];
 
     [self updateUI];
     
-    NSLog(@"%f", self.playCorder.getDuration);
+    NSLog(@"%f", [self.playCorder getDuration]);
+
 
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:0.929 green:0.502 blue:0.553 alpha:1];
 
@@ -184,8 +185,8 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         [self.playButton setBackgroundColor:[UIColor colorWithRed:0.929 green:0.502 blue:0.553 alpha:1]];
         
         self.navigationItem.rightBarButtonItem.enabled = YES;
-        
-        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
+
+//        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
 
 
     }
@@ -196,7 +197,7 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
         
         [self.playButton setBackgroundColor:[UIColor darkGrayColor]];
 
-        if (self.playCorder)
+     
         
         [self.recordButton setBackgroundColor:[UIColor colorWithRed:0.929 green:0.502 blue:0.553 alpha:1]];
         
@@ -204,9 +205,8 @@ typedef NS_ENUM(NSUInteger, SCSiriWaveformViewInputType) {
 
         
         
-        self.navigationItem.rightBarButtonItem.enabled = NO;
 
-        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
+//        self.navigationItem.rightBarButtonItem.tintColor = [UIColor clearColor];
 
     }
     
